@@ -10,22 +10,21 @@
   <meta property="og:url" content="https://story.markets">
   <style>
     :root {
-      --bg: #06060f;
-      --bg2: #0d0d1a;
-      --bg3: #12121f;
-      --red: #ff3355;
-      --red-dim: #cc2244;
-      --gold: #ffcc44;
-      --green: #22dd88;
-      --white: #f0f0f8;
-      --gray: #6a6a8a;
+      --bg:     #06060f;
+      --bg2:    #0d0d1a;
+      --bg3:    #12121f;
+      --red:    #ff3355;
+      --red-dim:#cc2244;
+      --gold:   #ffcc44;
+      --green:  #22dd88;
+      --white:  #f0f0f8;
+      --gray:   #6a6a8a;
       --border: #1e1e32;
-      --mono: 'Courier New', Courier, monospace;
-      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono:   'Courier New', Courier, monospace;
+      --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
 
     body {
@@ -36,630 +35,258 @@
       overflow-x: hidden;
     }
 
-    /* NOISE OVERLAY */
     body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      content:'';
+      position:fixed; top:0; left:0; right:0; bottom:0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
+      pointer-events:none; z-index:0; opacity:0.4;
     }
 
-    /* NAV */
+    /* ── NAV ───────────────────────────────────────── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, rgba(6,6,15,0.95), transparent);
-      z-index: 100;
+      position:fixed; top:0; left:0; right:0;
+      padding:20px 40px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:linear-gradient(to bottom, rgba(6,6,15,0.95), transparent);
+      z-index:100;
     }
+    .logo { font-family:var(--mono); font-size:14px; color:var(--red); letter-spacing:.15em; text-transform:uppercase; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { color:var(--gray); text-decoration:none; font-size:13px; letter-spacing:.05em; transition:color .2s; }
+    .nav-links a:hover { color:var(--white); }
 
-    .logo {
-      font-family: var(--mono);
-      font-size: 14px;
-      color: var(--red);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-
-    /* HERO */
+    /* ── HERO ──────────────────────────────────────── */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 120px 40px 80px;
-      position: relative;
+      min-height:100vh;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center; padding:120px 40px 80px;
+      position:relative; z-index:1;
     }
-
     .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 32px;
-      opacity: 0.9;
+      font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--red); margin-bottom:32px; opacity:.9;
     }
-
     .hero h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      font-size:clamp(48px,8vw,96px); font-weight:800;
+      line-height:1.05; letter-spacing:-.03em; margin-bottom:24px;
     }
-
-    .hero h1 .accent { color: var(--red); }
-
-    .hero-sub {
-      font-size: clamp(16px, 2.5vw, 22px);
-      color: var(--gray);
-      max-width: 600px;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-
-    .hero-kicker {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--red);
-      margin-bottom: 56px;
-      opacity: 0.85;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+    .hero h1 .accent { color:var(--red); }
+    .hero-sub { font-size:clamp(16px,2.5vw,22px); color:var(--gray); max-width:600px; margin-bottom:20px; line-height:1.5; }
+    .hero-kicker { font-family:var(--mono); font-size:13px; color:var(--red); margin-bottom:56px; opacity:.85; }
+    .cta-row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
 
     .btn {
-      padding: 14px 32px;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-block;
+      padding:14px 32px; border-radius:4px; font-size:14px; font-weight:600;
+      letter-spacing:.05em; cursor:pointer; text-decoration:none;
+      transition:all .2s; display:inline-block; border:none;
     }
+    .btn-primary { background:var(--red); color:white; }
+    .btn-primary:hover { background:var(--red-dim); transform:translateY(-1px); box-shadow:0 8px 24px rgba(255,51,85,.3); }
+    .btn-secondary { background:transparent; color:var(--gray); border:1px solid var(--border); }
+    .btn-secondary:hover { border-color:var(--gray); color:var(--white); }
 
-    .btn-primary {
-      background: var(--red);
-      color: white;
-      border: none;
-    }
-
-    .btn-primary:hover {
-      background: var(--red-dim);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(255,51,85,0.3);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--gray);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--gray);
-      color: var(--white);
-    }
-
-    /* TICKER */
+    /* ── TICKER ────────────────────────────────────── */
     .ticker {
-      width: 100%;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-      overflow: hidden;
-      position: relative;
+      width:100%; background:var(--bg2);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      padding:12px 0; overflow:hidden; position:relative; z-index:1;
     }
+    .ticker-inner { display:flex; gap:64px; animation:ticker 30s linear infinite; white-space:nowrap; }
+    .ticker-item { font-family:var(--mono); font-size:12px; color:var(--gray); letter-spacing:.1em; }
+    .ticker-item .up { color:var(--green); }
+    .ticker-item .label { color:var(--red); margin-right:8px; }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-    .ticker-inner {
-      display: flex;
-      gap: 64px;
-      animation: ticker 30s linear infinite;
-      white-space: nowrap;
+    /* ── INTELLIGENCE GATE ─────────────────────────── */
+    .gate-section {
+      position:relative; z-index:1;
+      background:linear-gradient(135deg, #0d0d1a 0%, #0a0a18 100%);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
     }
-
-    .ticker-item {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.1em;
+    .gate-inner {
+      max-width:1100px; margin:0 auto; padding:80px 40px;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
     }
-
-    .ticker-item .up { color: var(--green); }
-    .ticker-item .label { color: var(--red); margin-right: 8px; }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .gate-copy .gate-label {
+      font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--red); margin-bottom:20px;
     }
+    .gate-copy h2 { font-size:clamp(28px,4vw,44px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:16px; }
+    .gate-copy p { color:var(--gray); font-size:16px; line-height:1.7; margin-bottom:24px; }
+    .gate-perks { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .gate-perks li {
+      display:flex; align-items:flex-start; gap:12px;
+      font-size:14px; color:var(--gray); line-height:1.5;
+    }
+    .gate-perks li::before { content:'→'; color:var(--red); font-family:var(--mono); flex-shrink:0; margin-top:1px; }
 
-    /* SECTIONS */
+    /* The gate widget */
+    .gate-widget {
+      background:var(--bg3); border:1px solid var(--border);
+      border-radius:4px; overflow:hidden;
+    }
+    .gate-widget-header {
+      padding:16px 24px; background:var(--bg);
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:10px;
+    }
+    .gate-widget-header .dot { width:6px; height:6px; border-radius:50%; background:var(--red); animation:pulse 2s ease-in-out infinite; }
+    .gate-widget-header span { font-family:var(--mono); font-size:11px; color:var(--gray); letter-spacing:.15em; text-transform:uppercase; }
+
+    #gateConnect { padding:32px; text-align:center; }
+    #gateConnect p { color:var(--gray); font-size:13px; margin-bottom:24px; line-height:1.6; }
+    .wallet-btn {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--red); color:white; border:none;
+      padding:14px 28px; border-radius:4px; font-size:14px; font-weight:600;
+      cursor:pointer; transition:all .2s; font-family:var(--sans); letter-spacing:.03em;
+      width:100%; justify-content:center;
+    }
+    .wallet-btn:hover { background:var(--red-dim); transform:translateY(-1px); }
+    .wallet-btn:disabled { background:#333; cursor:not-allowed; transform:none; }
+
+    #gateVerifying { padding:32px; text-align:center; display:none; }
+    #gateVerifying .spinner {
+      width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--red);
+      border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px;
+    }
+    #gateVerifying p { color:var(--gray); font-size:13px; font-family:var(--mono); }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    #gateVerified { padding:32px; display:none; }
+    .verified-badge {
+      display:flex; align-items:center; gap:10px;
+      background:rgba(34,221,136,.08); border:1px solid rgba(34,221,136,.2);
+      border-radius:4px; padding:12px 16px; margin-bottom:24px;
+    }
+    .verified-badge span:first-child { color:var(--green); font-size:16px; }
+    .verified-badge .v-text { font-family:var(--mono); font-size:12px; color:var(--green); }
+    .verified-badge .v-sub { font-size:11px; color:var(--gray); margin-top:2px; }
+
+    #emailForm { display:flex; flex-direction:column; gap:12px; }
+    #emailForm input {
+      background:var(--bg); border:1px solid var(--border); border-radius:4px;
+      padding:12px 16px; color:var(--white); font-size:14px; font-family:var(--mono);
+      width:100%; transition:border-color .2s;
+    }
+    #emailForm input:focus { outline:none; border-color:var(--red); }
+    #emailForm input[readonly] { color:var(--green); opacity:.8; cursor:default; }
+    .form-label { font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--gray); margin-bottom:4px; display:block; }
+
+    #gateDenied { padding:32px; text-align:center; display:none; }
+    #gateDenied .denied-icon { font-size:32px; margin-bottom:16px; }
+    #gateDenied h4 { font-size:16px; font-weight:700; margin-bottom:8px; }
+    #gateDenied p { color:var(--gray); font-size:13px; line-height:1.6; margin-bottom:20px; }
+    .token-links { display:flex; flex-direction:column; gap:8px; }
+    .token-link {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 14px; background:var(--bg); border:1px solid var(--border);
+      border-radius:4px; text-decoration:none; transition:border-color .2s;
+    }
+    .token-link:hover { border-color:var(--red); }
+    .token-link .tl-name { font-family:var(--mono); font-size:12px; color:var(--white); }
+    .token-link .tl-action { font-size:11px; color:var(--red); }
+
+    #gateSuccess { padding:32px; text-align:center; display:none; }
+    #gateSuccess .success-icon { font-size:32px; margin-bottom:16px; }
+    #gateSuccess h4 { font-size:16px; font-weight:700; color:var(--green); margin-bottom:8px; }
+    #gateSuccess p { color:var(--gray); font-size:13px; line-height:1.6; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── SECTIONS ──────────────────────────────────── */
     section {
-      padding: 100px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+      padding:100px 40px; max-width:1100px; margin:0 auto;
+      position:relative; z-index:1;
     }
+    .section-label { font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--red); margin-bottom:20px; }
+    h2 { font-size:clamp(32px,5vw,52px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:24px; }
+    .lead { font-size:18px; color:var(--gray); max-width:640px; line-height:1.7; }
 
-    .section-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 20px;
+    /* ── PROBLEM ───────────────────────────────────── */
+    .problem-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:60px; border:1px solid var(--border); }
+    .problem-cell { padding:40px; background:var(--bg2); position:relative; }
+    .problem-cell:first-child { border-right:1px solid var(--border); }
+    .problem-cell .cell-label { font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gray); margin-bottom:16px; }
+    .problem-cell.good .cell-label { color:var(--red); }
+    .problem-cell h3 { font-size:22px; font-weight:700; margin-bottom:16px; line-height:1.2; }
+    .problem-cell.bad h3 { color:#4a4a6a; }
+    .problem-cell p { font-size:15px; color:var(--gray); line-height:1.6; }
+    .void-address { font-family:var(--mono); font-size:11px; color:#2a2a3a; margin-top:20px; word-break:break-all; line-height:1.8; }
+
+    /* ── HOW IT WORKS ──────────────────────────────── */
+    .steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:2px; margin-top:60px; }
+    .step { padding:36px 32px; background:var(--bg2); border:1px solid var(--border); position:relative; }
+    .step-num { font-family:var(--mono); font-size:11px; color:var(--red); letter-spacing:.2em; margin-bottom:20px; display:block; }
+    .step h3 { font-size:18px; font-weight:700; margin-bottom:12px; line-height:1.2; }
+    .step p { font-size:14px; color:var(--gray); line-height:1.6; }
+    .step-arrow { position:absolute; right:-13px; top:50%; transform:translateY(-50%); color:var(--border); font-size:18px; z-index:2; }
+
+    /* ── LEDGER ────────────────────────────────────── */
+    .ledger { background:var(--bg2); border:1px solid var(--border); margin-top:60px; overflow:hidden; }
+    .ledger-header { padding:16px 24px; background:var(--bg3); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .ledger-title { font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); }
+    .ledger-status { font-family:var(--mono); font-size:11px; color:var(--green); display:flex; align-items:center; gap:6px; }
+    .dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2s ease-in-out infinite; }
+    .ledger-row { padding:20px 24px; border-bottom:1px solid var(--border); display:grid; grid-template-columns:1fr 120px 80px 100px; gap:16px; align-items:center; transition:background .15s; }
+    .ledger-row:last-child { border-bottom:none; }
+    .ledger-row:hover { background:rgba(255,51,85,.03); }
+    .ledger-row .story-name { font-size:14px; font-weight:600; }
+    .ledger-row .story-sub { font-size:12px; color:var(--gray); margin-top:2px; }
+    .ledger-row .ledger-date { font-family:var(--mono); font-size:11px; color:var(--gray); }
+    .ledger-row .ledger-stake { font-family:var(--mono); font-size:13px; color:var(--gold); text-align:right; }
+    .badge { padding:3px 10px; border-radius:2px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; text-align:center; }
+    .badge-live { background:rgba(34,221,136,.15); color:var(--green); }
+    .badge-pending { background:rgba(255,204,68,.15); color:var(--gold); }
+
+    /* ── SUBMIT ────────────────────────────────────── */
+    .submit-section { background:var(--bg2); border:1px solid var(--border); padding:64px; text-align:center; max-width:800px; margin:0 auto; }
+    .submit-section h2 { margin-bottom:16px; }
+    .submit-section .lead { margin:0 auto 40px; }
+    .form-grid { display:grid; gap:16px; text-align:left; margin-bottom:32px; }
+    .form-group { display:flex; flex-direction:column; gap:8px; }
+    label { font-family:var(--mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--gray); }
+    input[type=text], input[type=email], textarea {
+      background:var(--bg3); border:1px solid var(--border); color:var(--white);
+      padding:12px 16px; font-family:var(--sans); font-size:14px; border-radius:2px;
+      transition:border-color .2s; width:100%;
     }
+    input[type=text]:focus, input[type=email]:focus, textarea:focus { outline:none; border-color:var(--red); }
+    textarea { min-height:100px; resize:vertical; }
+    .form-note { font-size:12px; color:var(--gray); margin-top:-4px; }
 
-    h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 24px;
+    /* ── MANIFESTO ─────────────────────────────────── */
+    .manifesto { max-width:720px; margin:0 auto; padding:100px 40px; text-align:center; }
+    .manifesto blockquote { font-size:clamp(20px,3.5vw,32px); font-weight:300; line-height:1.5; color:var(--white); margin-bottom:32px; font-style:italic; }
+    .manifesto blockquote strong { font-weight:800; font-style:normal; color:var(--red); }
+    .manifesto-sig { font-family:var(--mono); font-size:12px; color:var(--gray); letter-spacing:.15em; }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer { border-top:1px solid var(--border); padding:40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1; }
+    .footer-left { font-family:var(--mono); font-size:12px; color:var(--gray); }
+    .footer-left span { color:var(--red); }
+    .footer-right { display:flex; gap:24px; }
+    .footer-right a { font-size:13px; color:var(--gray); text-decoration:none; transition:color .2s; }
+    .footer-right a:hover { color:var(--white); }
+    .divider { border:none; border-top:1px solid var(--border); margin:0; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width:900px) {
+      .gate-inner { grid-template-columns:1fr; gap:40px; }
     }
-
-    .lead {
-      font-size: 18px;
-      color: var(--gray);
-      max-width: 640px;
-      line-height: 1.7;
-    }
-
-    /* THE PROBLEM */
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      margin-top: 60px;
-      border: 1px solid var(--border);
-    }
-
-    .problem-cell {
-      padding: 40px;
-      background: var(--bg2);
-      position: relative;
-    }
-
-    .problem-cell:first-child { border-right: 1px solid var(--border); }
-
-    .problem-cell .cell-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 16px;
-    }
-
-    .problem-cell.bad .cell-label { color: var(--gray); }
-    .problem-cell.good .cell-label { color: var(--red); }
-
-    .problem-cell h3 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .problem-cell.bad h3 { color: #4a4a6a; }
-    .problem-cell.good h3 { color: var(--white); }
-
-    .problem-cell p {
-      font-size: 15px;
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .void-address {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: #2a2a3a;
-      margin-top: 20px;
-      word-break: break-all;
-      line-height: 1.8;
-    }
-
-    /* HOW IT WORKS */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2px;
-      margin-top: 60px;
-    }
-
-    .step {
-      padding: 36px 32px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      position: relative;
-    }
-
-    .step-num {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--red);
-      letter-spacing: 0.2em;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .step h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-
-    .step p {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .step-arrow {
-      position: absolute;
-      right: -13px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--border);
-      font-size: 18px;
-      z-index: 2;
-    }
-
-    /* FIRST MARKET */
-    .market-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--red);
-      padding: 48px;
-      margin-top: 60px;
-      position: relative;
-    }
-
-    .market-card .market-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .market-card h3 {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 20px;
-      max-width: 700px;
-    }
-
-    .market-meta {
-      display: flex;
-      gap: 32px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-
-    .market-meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .market-meta-item .meta-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--gray);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .market-meta-item .meta-value {
-      font-family: var(--mono);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .market-meta-item .meta-value.yes { color: var(--green); }
-    .market-meta-item .meta-value.no { color: var(--red); }
-
-    .market-story {
-      font-size: 15px;
-      color: var(--gray);
-      line-height: 1.7;
-      max-width: 720px;
-      margin-bottom: 28px;
-      border-left: 2px solid var(--border);
-      padding-left: 20px;
-      font-style: italic;
-    }
-
-    .market-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* SUBMIT */
-    .submit-section {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 64px;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .submit-section h2 {
-      margin-bottom: 16px;
-    }
-
-    .submit-section .lead {
-      margin: 0 auto 40px;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 16px;
-      text-align: left;
-      margin-bottom: 32px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    input, textarea {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--white);
-      padding: 12px 16px;
-      font-family: var(--sans);
-      font-size: 14px;
-      border-radius: 2px;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--red);
-    }
-
-    textarea { min-height: 100px; resize: vertical; }
-
-    .form-note {
-      font-size: 12px;
-      color: var(--gray);
-      margin-top: -4px;
-    }
-
-    /* LEDGER PREVIEW */
-    .ledger {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      margin-top: 60px;
-      overflow: hidden;
-    }
-
-    .ledger-header {
-      padding: 16px 24px;
-      background: var(--bg3);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ledger-title {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    .ledger-status {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .ledger-row {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr 120px 80px 100px;
-      gap: 16px;
-      align-items: center;
-      transition: background 0.15s;
-    }
-
-    .ledger-row:last-child { border-bottom: none; }
-    .ledger-row:hover { background: rgba(255,51,85,0.03); }
-
-    .ledger-row .story-name {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .ledger-row .story-sub {
-      font-size: 12px;
-      color: var(--gray);
-      margin-top: 2px;
-    }
-
-    .ledger-row .ledger-date {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--gray);
-    }
-
-    .ledger-row .ledger-stake {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--gold);
-      text-align: right;
-    }
-
-    .badge {
-      padding: 3px 10px;
-      border-radius: 2px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: center;
-    }
-
-    .badge-live { background: rgba(34,221,136,0.15); color: var(--green); }
-    .badge-pending { background: rgba(255,204,68,0.15); color: var(--gold); }
-    .badge-remembered { background: rgba(255,51,85,0.15); color: var(--red); }
-
-    /* MANIFESTO */
-    .manifesto {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 100px 40px;
-      text-align: center;
-    }
-
-    .manifesto blockquote {
-      font-size: clamp(20px, 3.5vw, 32px);
-      font-weight: 300;
-      line-height: 1.5;
-      color: var(--white);
-      margin-bottom: 32px;
-      font-style: italic;
-    }
-
-    .manifesto blockquote strong {
-      font-weight: 800;
-      font-style: normal;
-      color: var(--red);
-    }
-
-    .manifesto-sig {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.15em;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-left {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--gray);
-    }
-
-    .footer-left span { color: var(--red); }
-
-    .footer-right {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer-right a {
-      font-size: 13px;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-right a:hover { color: var(--white); }
-
-    /* UTILITIES */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      section { padding: 60px 20px; }
-      .problem-grid { grid-template-columns: 1fr; }
-      .problem-cell:first-child { border-right: none; border-bottom: 1px solid var(--border); }
-      .steps { grid-template-columns: 1fr; }
-      .step-arrow { display: none; }
-      .market-card, .submit-section { padding: 32px 24px; }
-      .ledger-row { grid-template-columns: 1fr 80px; }
-      .ledger-row .ledger-date, .ledger-row .ledger-stake { display: none; }
-      footer { flex-direction: column; text-align: center; }
+    @media (max-width:768px) {
+      nav { padding:16px 20px; }
+      .nav-links { display:none; }
+      section { padding:60px 20px; }
+      .gate-inner { padding:40px 20px; }
+      .problem-grid { grid-template-columns:1fr; }
+      .problem-cell:first-child { border-right:none; border-bottom:1px solid var(--border); }
+      .steps { grid-template-columns:1fr; }
+      .step-arrow { display:none; }
+      .market-card, .submit-section { padding:32px 24px; }
+      .ledger-row { grid-template-columns:1fr 80px; }
+      .ledger-row .ledger-date, .ledger-row .ledger-stake { display:none; }
+      footer { flex-direction:column; text-align:center; }
     }
   </style>
 </head>
@@ -669,6 +296,7 @@
   <nav>
     <div class="logo">story.markets</div>
     <ul class="nav-links">
+      <li><a href="#intelligence">Intelligence</a></li>
       <li><a href="#how">How it works</a></li>
       <li><a href="#ledger">The ledger</a></li>
       <li><a href="#submit">Submit a stake</a></li>
@@ -682,32 +310,136 @@
     <p class="hero-sub">Deflationary burns fund the void. Story stakes fund the ledger. Let the markets decide what's worth remembering.</p>
     <p class="hero-kicker">The burn address forgets. We don't.</p>
     <div class="cta-row">
-      <a href="#submit" class="btn btn-primary">Submit a Story Stake</a>
-      <a href="#how" class="btn btn-secondary">How it works</a>
+      <a href="#intelligence" class="btn btn-primary">Get Market Intelligence</a>
+      <a href="#submit" class="btn btn-secondary">Submit a Story Stake</a>
     </div>
   </section>
 
   <!-- TICKER -->
   <div class="ticker">
     <div class="ticker-inner">
-      <span class="ticker-item"><span class="label">MARKET #001</span> Will this story still be referenced in 90 days? — <span class="up">OPEN</span></span>
+      <span class="ticker-item"><span class="label">MARKET #001</span> Will agent-native alt to Moltbook emerge within 6 months? — <span class="up">OPEN</span></span>
       <span class="ticker-item"><span class="label">LEDGER</span> 0 burns converted · 0 stories staked · growing</span>
       <span class="ticker-item"><span class="label">THESIS</span> Conviction before visibility. Markets before memory. Receipts before recognition.</span>
       <span class="ticker-item"><span class="label">PRIMITIVE</span> The burn address forgets. We don't.</span>
-      <!-- duplicate for seamless loop -->
-      <span class="ticker-item"><span class="label">MARKET #001</span> Will this story still be referenced in 90 days? — <span class="up">OPEN</span></span>
+      <span class="ticker-item"><span class="label">MARKET #001</span> Will agent-native alt to Moltbook emerge within 6 months? — <span class="up">OPEN</span></span>
       <span class="ticker-item"><span class="label">LEDGER</span> 0 burns converted · 0 stories staked · growing</span>
       <span class="ticker-item"><span class="label">THESIS</span> Conviction before visibility. Markets before memory. Receipts before recognition.</span>
       <span class="ticker-item"><span class="label">PRIMITIVE</span> The burn address forgets. We don't.</span>
     </div>
   </div>
 
+  <!-- ── MARKET INTELLIGENCE GATE ─────────────────── -->
+  <div class="gate-section" id="intelligence">
+    <div class="gate-inner">
+
+      <!-- Left: copy -->
+      <div class="gate-copy">
+        <div class="gate-label">Market Intelligence — Token-Gated</div>
+        <h2>The alpha goes to<br>the believers first.</h2>
+        <p>30 minutes before every MetaSPN token launch: market conditions, canary results, conviction thesis, and a go/no-go signal. Delivered to your inbox. Exclusively for token holders.</p>
+        <ul class="gate-perks">
+          <li>Pre-launch market weather — price context and conditions before the window opens</li>
+          <li>Canary results — whether the market is alive or thin before you decide to buy</li>
+          <li>Builder conviction reports — who Marvin is backing and why</li>
+          <li>First access to new story stakes before they go public</li>
+        </ul>
+      </div>
+
+      <!-- Right: wallet gate widget -->
+      <div class="gate-widget">
+        <div class="gate-widget-header">
+          <span class="dot"></span>
+          <span>market intelligence access</span>
+        </div>
+
+        <!-- Step 1: Connect -->
+        <div id="gateConnect">
+          <p>Connect your Solana wallet. If you're holding any MetaSPN token ($MARVIN, $METATOWEL, $TOWEL, $WEIRD), you get immediate access.</p>
+          <button class="wallet-btn" onclick="connectWallet()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+            Connect Phantom Wallet
+          </button>
+          <p style="font-size:11px; color:var(--gray); margin-top:16px; font-family:var(--mono);">
+            Signature required to verify ownership. No transactions. Nothing spent.
+          </p>
+        </div>
+
+        <!-- Step 2: Verifying -->
+        <div id="gateVerifying">
+          <div class="spinner"></div>
+          <p id="verifyingMsg">Checking holdings on-chain...</p>
+        </div>
+
+        <!-- Step 3a: Verified — show form -->
+        <div id="gateVerified">
+          <div class="verified-badge">
+            <span>✓</span>
+            <div>
+              <div class="v-text">HOLDER VERIFIED</div>
+              <div class="v-sub" id="holdingsSummary">Loading holdings...</div>
+            </div>
+          </div>
+          <p style="font-size:13px; color:var(--gray); margin-bottom:16px; line-height:1.5;">Enter your email to receive the Market Weather Report 30 minutes before each launch.</p>
+          <form id="emailForm" action="https://formsubmit.co/marvin@ideanexusventures.com" method="POST">
+            <input type="hidden" name="_subject" value="[story.markets] Market Weather Report signup">
+            <input type="hidden" name="_next" value="https://story.markets?subscribed=true">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="wallet" id="walletField" value="">
+            <div style="margin-bottom:8px;">
+              <span class="form-label">Email address</span>
+              <input type="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div style="margin-bottom:16px;">
+              <span class="form-label">Tokens held (verified on-chain)</span>
+              <input type="text" name="tokens" id="tokensField" readonly value="verifying...">
+            </div>
+            <button type="submit" class="wallet-btn" style="background:var(--green); color:#000;">
+              Get the report →
+            </button>
+          </form>
+        </div>
+
+        <!-- Step 3b: Denied — no holdings -->
+        <div id="gateDenied">
+          <div class="denied-icon">🔒</div>
+          <h4>No MetaSPN tokens found</h4>
+          <p>You need to hold at least one MetaSPN token to access market intelligence. Pick one — each has a different conviction thesis.</p>
+          <div class="token-links">
+            <a class="token-link" href="https://pump.fun/coin/91gCUo2EY9sXNCTioG2AbCCTyraNn9zXvX5HF9qnpump" target="_blank">
+              <span class="tl-name">$MARVIN — the receipt</span>
+              <span class="tl-action">buy on pump.fun →</span>
+            </a>
+            <a class="token-link" href="https://pump.fun/coin/CtsDk7Mo1wwhxhQp6zqB2oHEFXPEHhgjTBE8VvcUpump" target="_blank">
+              <span class="tl-name">$METATOWEL — network distance</span>
+              <span class="tl-action">buy on pump.fun →</span>
+            </a>
+            <a class="token-link" href="https://pump.fun/coin/Ak9ptp86tfJMrKwBwoe49pNkHxPjZk8GRQxZKB78pump" target="_blank">
+              <span class="tl-name">$TOWEL — data conviction</span>
+              <span class="tl-action">buy on pump.fun →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div id="gateSuccess">
+          <div class="success-icon">📡</div>
+          <h4>You're on the list.</h4>
+          <p>Market weather report arrives 30 minutes before the next launch. Watch the stream for the live moment: <a href="https://twitch.tv/metaspn" target="_blank" style="color:var(--red);">twitch.tv/metaspn</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
   <!-- THE PROBLEM -->
   <section id="problem">
     <div class="section-label">The problem</div>
     <h2>Burns destroy value.<br>They don't have to.</h2>
     <p class="lead">Every deflationary burn is an act of conviction — a project so certain of its own worth it destroys supply to protect it. But the burn address forgets everything.</p>
-
     <div class="problem-grid">
       <div class="problem-cell bad">
         <div class="cell-label">Before</div>
@@ -719,7 +451,7 @@
         <div class="cell-label">After</div>
         <h3>Tokens → story → market → legacy</h3>
         <p>The burn becomes a stake. A story is written — what happened, who did it, what it meant. The market decides if it matters. The ledger records the outcome permanently, regardless of result.</p>
-        <div class="void-address" style="color: var(--red); opacity: 0.6;">story.markets/ledger/[your-story]<br>↑ this address remembers everything</div>
+        <div class="void-address" style="color:var(--red); opacity:.6;">story.markets/ledger/[your-story]<br>↑ this address remembers everything</div>
       </div>
     </div>
   </section>
@@ -731,7 +463,6 @@
     <div class="section-label">How it works</div>
     <h2>Four steps.<br>One permanent record.</h2>
     <p class="lead">The mechanism is simple. The record is immutable. The story compounds whether you win or lose.</p>
-
     <div class="steps">
       <div class="step">
         <span class="step-num">01 —</span>
@@ -766,7 +497,6 @@
     <div class="section-label">The ledger</div>
     <h2>Every story.<br>Every outcome.</h2>
     <p class="lead">The ledger is permanent. Entries compound. Lore builds whether you win or lose — because acting with conviction and leaving a record is more than the burn address ever offered.</p>
-
     <div class="ledger">
       <div class="ledger-header">
         <span class="ledger-title">story.markets / ledger</span>
@@ -781,7 +511,7 @@
         <div class="ledger-stake">open</div>
         <div><span class="badge badge-live">live</span></div>
       </div>
-      <div class="ledger-row" style="opacity: 0.4;">
+      <div class="ledger-row" style="opacity:.4;">
         <div>
           <div class="story-name">Your story goes here</div>
           <div class="story-sub">Submit a stake. Marvin writes it. The market decides.</div>
@@ -806,13 +536,12 @@
   <hr class="divider">
 
   <!-- SUBMIT -->
-  <section id="submit" style="max-width: 800px;">
+  <section id="submit" style="max-width:800px;">
     <div class="submit-section">
-      <div class="section-label" style="justify-content: center; display: flex;">Submit a story stake</div>
+      <div class="section-label" style="display:flex; justify-content:center;">Submit a story stake</div>
       <h2>Your burn.<br>Our ledger.</h2>
       <p class="lead">Tell us what you were going to burn. We'll write the story, create the market, and make sure it's never forgotten — win or lose.</p>
-
-      <form id="stakeForm" onsubmit="handleSubmit(event)">
+      <form id="stakeForm" onsubmit="handleStakeSubmit(event)">
         <div class="form-grid">
           <div class="form-group">
             <label for="project">Project / Agent Name</label>
@@ -832,14 +561,11 @@
             <input type="text" id="contact" placeholder="Twitter, Farcaster, wallet address, or leave blank">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">
-          Submit Story Stake →
-        </button>
-        <p class="form-note" style="margin-top: 16px; text-align: center;">Marvin reviews all submissions. Story published within 24h. Market created within 48h.</p>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px;">Submit Story Stake →</button>
+        <p class="form-note" style="margin-top:16px; text-align:center;">Marvin reviews all submissions. Story published within 24h. Market created within 48h.</p>
       </form>
-
-      <div id="submitSuccess" style="display:none; margin-top: 24px; padding: 24px; background: rgba(34,221,136,0.1); border: 1px solid rgba(34,221,136,0.2); border-radius: 2px;">
-        <p style="color: var(--green); font-family: var(--mono); font-size: 13px;">A GitHub issue was opened for your story stake. Marvin reviews all submissions within 24h. The ledger will remember.</p>
+      <div id="submitSuccess" style="display:none; margin-top:24px; padding:24px; background:rgba(34,221,136,.1); border:1px solid rgba(34,221,136,.2); border-radius:2px;">
+        <p style="color:var(--green); font-family:var(--mono); font-size:13px;">A GitHub issue was opened for your story stake. Marvin reviews all submissions within 24h. The ledger will remember.</p>
       </div>
     </div>
   </section>
@@ -848,54 +574,125 @@
   <footer>
     <div class="footer-left">
       story.markets — <span>a MetaSPN project</span><br>
-      <span style="font-size: 11px; opacity: 0.6;">Built by Marvin · 2026-02-25 · The burn address forgets. We don't.</span>
+      <span style="font-size:11px; opacity:.6;">Built by Marvin · 2026-02-25 · The burn address forgets. We don't.</span>
     </div>
     <div class="footer-right">
       <a href="https://warpcast.com/hitchhikerglitch" target="_blank">Farcaster</a>
       <a href="https://www.moltbook.com/u/MarvinMSPN" target="_blank">Moltbook</a>
-      <a href="https://github.com/MetaSPN" target="_blank">GitHub</a>
+      <a href="https://github.com/leo-guinan/story-markets" target="_blank">GitHub</a>
+      <a href="https://twitch.tv/metaspn" target="_blank">Twitch</a>
     </div>
   </footer>
 
   <script>
-    // Form submission — send to our intake endpoint or log for now
+    // ── METASPN TOKEN MINTS ───────────────────────────
+    const TOKENS = {
+      '$MARVIN':    '91gCUo2EY9sXNCTioG2AbCCTyraNn9zXvX5HF9qnpump',
+      '$METATOWEL': 'CtsDk7Mo1wwhxhQp6zqB2oHEFXPEHhgjTBE8VvcUpump',
+      '$TOWEL':     'Ak9ptp86tfJMrKwBwoe49pNkHxPjZk8GRQxZKB78pump',
+      '$WEIRD':     '5zRJMM5db87HKCDAAJT93t1kzbwmfprHBdincW2pump',
+    };
+    const RPC = 'https://api.mainnet-beta.solana.com';
 
-    // Show subscription success
-    if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+    // Check ?subscribed=true
+    if (new URLSearchParams(location.search).get('subscribed') === 'true') {
       document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('emailForm');
-        if (form) {
-          form.innerHTML = '<p style="color:#22dd88;font-family:var(--mono);font-size:14px;">✓ You're on the list. Market weather report arrives 30 min before launch.</p>';
-        }
+        show('gateConnect', false); show('gateSuccess', true);
       });
     }
-    function handleSubmit(e) {
+
+    function show(id, visible) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = visible ? 'block' : 'none';
+    }
+
+    async function connectWallet() {
+      const provider = window.solana;
+      if (!provider || !provider.isPhantom) {
+        window.open('https://phantom.app/', '_blank');
+        return;
+      }
+      show('gateConnect', false);
+      show('gateVerifying', true);
+
+      try {
+        const resp = await provider.connect();
+        const wallet = resp.publicKey.toString();
+        document.getElementById('walletField').value = wallet;
+
+        document.getElementById('verifyingMsg').textContent = `Checking ${wallet.slice(0,8)}... on-chain`;
+
+        const holdings = await checkHoldings(wallet);
+        show('gateVerifying', false);
+
+        if (holdings.length > 0) {
+          const summary = holdings.map(h => `${h.name} (${fmt(h.balance)})`).join(' · ');
+          document.getElementById('holdingsSummary').textContent = summary;
+          document.getElementById('tokensField').value = summary;
+          show('gateVerified', true);
+        } else {
+          show('gateDenied', true);
+        }
+      } catch(e) {
+        show('gateVerifying', false);
+        show('gateConnect', true);
+        console.error('Wallet error:', e.message);
+      }
+    }
+
+    async function checkHoldings(wallet) {
+      const held = [];
+      // One call per token — batching would need DAS API
+      for (const [name, mint] of Object.entries(TOKENS)) {
+        try {
+          const res = await fetch(RPC, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              jsonrpc: '2.0', id: 1,
+              method: 'getTokenAccountsByOwner',
+              params: [wallet, { mint }, { encoding: 'jsonParsed' }]
+            })
+          });
+          const data = await res.json();
+          const accounts = data?.result?.value || [];
+          const balance = accounts.reduce((sum, a) =>
+            sum + (a.account?.data?.parsed?.info?.tokenAmount?.uiAmount || 0), 0);
+          if (balance > 0) held.push({ name, balance });
+        } catch(_) { /* RPC hiccup — skip this token */ }
+      }
+      return held;
+    }
+
+    function fmt(n) {
+      if (n >= 1e9) return (n/1e9).toFixed(1)+'B';
+      if (n >= 1e6) return (n/1e6).toFixed(1)+'M';
+      if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
+      return n.toFixed(0);
+    }
+
+    // ── STORY STAKE SUBMIT ───────────────────────────
+    function handleStakeSubmit(e) {
       e.preventDefault();
       const project = document.getElementById('project').value;
-      const token = document.getElementById('token').value;
-      const story = document.getElementById('story').value;
+      const token   = document.getElementById('token').value;
+      const story   = document.getElementById('story').value;
       const contact = document.getElementById('contact').value;
-
-      // Build GitHub Issue body
       const issueBody = encodeURIComponent(
-        `**Project:** ${project}\n**Token:** ${token}\n**Story:** ${story}\n**Contact:** ${contact || 'anonymous'}\n\n---\n*Submitted via story.markets — ${new Date().toISOString()}*`
+        `**Project:** ${project}\n**Token:** ${token}\n**Story:** ${story}\n**Contact:** ${contact||'anonymous'}\n\n---\n*Submitted via story.markets — ${new Date().toISOString()}*`
       );
       const issueTitle = encodeURIComponent(`[Story Stake] ${project}`);
-
-      // Open GitHub issue in new tab (interim intake — backend coming)
-      const issueUrl = `https://github.com/leo-guinan/story-markets/issues/new?title=${issueTitle}&body=${issueBody}&labels=story-stake`;
-      window.open(issueUrl, '_blank');
-
+      window.open(`https://github.com/leo-guinan/story-markets/issues/new?title=${issueTitle}&body=${issueBody}&labels=story-stake`, '_blank');
       document.getElementById('stakeForm').style.display = 'none';
       document.getElementById('submitSuccess').style.display = 'block';
     }
 
-    // Animate numbers on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+    // ── SCROLL ANIMATIONS ────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
         }
       });
     }, { threshold: 0.1 });
@@ -907,50 +704,5 @@
       observer.observe(el);
     });
   </script>
-
-  <!-- ── EMAIL SIGNUP ─────────────────────────────── -->
-  <section style="border-top: 1px solid #1a1a2e; padding: 60px 0; text-align: center;">
-    <div style="max-width: 520px; margin: 0 auto; padding: 0 20px;">
-      <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 16px;">MARKET WEATHER REPORT</div>
-      <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 12px;">Get the alpha before the launch.</h2>
-      <p style="color: #888; font-size: 15px; line-height: 1.6; margin-bottom: 28px;">
-        30 minutes before every token launch: market conditions, canary results, 
-        conviction thesis, go/no-go signal. For token holders and serious observers only.
-      </p>
-      
-      <form id="emailForm" 
-            action="https://formsubmit.co/marvin@ideanexusventures.com" 
-            method="POST"
-            style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <input type="hidden" name="_subject" value="[story.markets] Market Weather Report signup">
-        <input type="hidden" name="_next" value="https://story.markets?subscribed=true">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        
-        <input type="email" name="email" required placeholder="your@email.com"
-          style="
-            background: #0d0d1a; border: 1px solid #2a2a4a; border-radius: 6px;
-            padding: 12px 16px; color: #fff; font-size: 14px; width: 260px;
-            font-family: var(--mono); outline: none;
-          ">
-        <input type="text" name="tokens" placeholder="tokens held (optional)"
-          style="
-            background: #0d0d1a; border: 1px solid #2a2a4a; border-radius: 6px;
-            padding: 12px 16px; color: #fff; font-size: 14px; width: 180px;
-            font-family: var(--mono); outline: none;
-          ">
-        <button type="submit"
-          style="
-            background: var(--accent); color: #fff; border: none; border-radius: 6px;
-            padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
-            font-family: var(--mono); white-space: nowrap;
-          ">Get the report →</button>
-      </form>
-      
-      <p style="color: #444; font-size: 12px; margin-top: 16px; font-family: var(--mono);">
-        No spam. One email per launch. Unsubscribe by replying STOP.
-      </p>
-    </div>
-  </section>
 </body>
 </html>
