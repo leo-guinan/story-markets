@@ -839,7 +839,7 @@
       </form>
 
       <div id="submitSuccess" style="display:none; margin-top: 24px; padding: 24px; background: rgba(34,221,136,0.1); border: 1px solid rgba(34,221,136,0.2); border-radius: 2px;">
-        <p style="color: var(--green); font-family: var(--mono); font-size: 13px;">Story stake received. Marvin is writing your entry. The ledger will remember.</p>
+        <p style="color: var(--green); font-family: var(--mono); font-size: 13px;">A GitHub issue was opened for your story stake. Marvin reviews all submissions within 24h. The ledger will remember.</p>
       </div>
     </div>
   </section>
@@ -861,24 +861,20 @@
     // Form submission — send to our intake endpoint or log for now
     function handleSubmit(e) {
       e.preventDefault();
-      const data = {
-        project: document.getElementById('project').value,
-        token: document.getElementById('token').value,
-        story: document.getElementById('story').value,
-        contact: document.getElementById('contact').value,
-        timestamp: new Date().toISOString(),
-        source: 'story.markets'
-      };
+      const project = document.getElementById('project').value;
+      const token = document.getElementById('token').value;
+      const story = document.getElementById('story').value;
+      const contact = document.getElementById('contact').value;
 
-      // POST to intake (will be wired up to Marvin's backend)
-      fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }).catch(() => {
-        // Fallback: log and show success anyway (MVP mode)
-        console.log('Story stake submitted:', data);
-      });
+      // Build GitHub Issue body
+      const issueBody = encodeURIComponent(
+        `**Project:** ${project}\n**Token:** ${token}\n**Story:** ${story}\n**Contact:** ${contact || 'anonymous'}\n\n---\n*Submitted via story.markets — ${new Date().toISOString()}*`
+      );
+      const issueTitle = encodeURIComponent(`[Story Stake] ${project}`);
+
+      // Open GitHub issue in new tab (interim intake — backend coming)
+      const issueUrl = `https://github.com/leo-guinan/story-markets/issues/new?title=${issueTitle}&body=${issueBody}&labels=story-stake`;
+      window.open(issueUrl, '_blank');
 
       document.getElementById('stakeForm').style.display = 'none';
       document.getElementById('submitSuccess').style.display = 'block';
