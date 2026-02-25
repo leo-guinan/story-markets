@@ -859,6 +859,16 @@
 
   <script>
     // Form submission — send to our intake endpoint or log for now
+
+    // Show subscription success
+    if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('emailForm');
+        if (form) {
+          form.innerHTML = '<p style="color:#22dd88;font-family:var(--mono);font-size:14px;">✓ You're on the list. Market weather report arrives 30 min before launch.</p>';
+        }
+      });
+    }
     function handleSubmit(e) {
       e.preventDefault();
       const project = document.getElementById('project').value;
@@ -897,5 +907,50 @@
       observer.observe(el);
     });
   </script>
+
+  <!-- ── EMAIL SIGNUP ─────────────────────────────── -->
+  <section style="border-top: 1px solid #1a1a2e; padding: 60px 0; text-align: center;">
+    <div style="max-width: 520px; margin: 0 auto; padding: 0 20px;">
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 16px;">MARKET WEATHER REPORT</div>
+      <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 12px;">Get the alpha before the launch.</h2>
+      <p style="color: #888; font-size: 15px; line-height: 1.6; margin-bottom: 28px;">
+        30 minutes before every token launch: market conditions, canary results, 
+        conviction thesis, go/no-go signal. For token holders and serious observers only.
+      </p>
+      
+      <form id="emailForm" 
+            action="https://formsubmit.co/marvin@ideanexusventures.com" 
+            method="POST"
+            style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <input type="hidden" name="_subject" value="[story.markets] Market Weather Report signup">
+        <input type="hidden" name="_next" value="https://story.markets?subscribed=true">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        
+        <input type="email" name="email" required placeholder="your@email.com"
+          style="
+            background: #0d0d1a; border: 1px solid #2a2a4a; border-radius: 6px;
+            padding: 12px 16px; color: #fff; font-size: 14px; width: 260px;
+            font-family: var(--mono); outline: none;
+          ">
+        <input type="text" name="tokens" placeholder="tokens held (optional)"
+          style="
+            background: #0d0d1a; border: 1px solid #2a2a4a; border-radius: 6px;
+            padding: 12px 16px; color: #fff; font-size: 14px; width: 180px;
+            font-family: var(--mono); outline: none;
+          ">
+        <button type="submit"
+          style="
+            background: var(--accent); color: #fff; border: none; border-radius: 6px;
+            padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
+            font-family: var(--mono); white-space: nowrap;
+          ">Get the report →</button>
+      </form>
+      
+      <p style="color: #444; font-size: 12px; margin-top: 16px; font-family: var(--mono);">
+        No spam. One email per launch. Unsubscribe by replying STOP.
+      </p>
+    </div>
+  </section>
 </body>
 </html>
