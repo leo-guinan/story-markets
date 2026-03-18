@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bracket Challenge 2026 — Leo vs Marvin</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: #222;
+      --leo: #3b82f6;
+      --marvin: #a855f7;
+      --correct: #22c55e;
+      --wrong: #ef4444;
+      --pending: #444;
+      --text: #e5e5e5;
+      --muted: #666;
+      --gold: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.5; }
+    header { border-bottom: 1px solid var(--border); padding: 24px 32px; }
+    header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; }
+    header p { color: var(--muted); margin-top: 4px; font-size: 12px; }
+    .scoreboard { display: flex; gap: 32px; padding: 20px 32px; border-bottom: 1px solid var(--border); }
+    .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 24px; flex: 1; }
+    .score-card .name { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .score-card.leo .name { color: var(--leo); }
+    .score-card.marvin .name { color: var(--marvin); }
+    .score-card .champion { font-size: 18px; font-weight: 700; }
+    .score-card .points { font-size: 28px; font-weight: 800; color: var(--gold); margin-top: 4px; }
+    .score-card .detail { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .note { padding: 12px 32px; background: #111; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--muted); }
+    main { padding: 24px 32px; }
+    .regions { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .region { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .region-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; }
+    .round-label { padding: 8px 16px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); border-top: 1px solid var(--border); }
+    .matchup { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-bottom: 1px solid var(--border); }
+    .matchup:last-child { border-bottom: none; }
+    .matchup-game { padding: 6px 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; border-right: 1px solid var(--border); }
+    .pick { padding: 6px 12px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+    .pick.leo { border-right: 1px solid var(--border); }
+    .pick-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; display: block; }
+    .pick-label.leo { color: var(--leo); }
+    .pick-label.marvin { color: var(--marvin); }
+    .pick-name { display: block; font-weight: 500; }
+    .status-correct { color: var(--correct); }
+    .status-wrong { color: var(--wrong); }
+    .status-pending { color: var(--pending); }
+    .agree { background: rgba(255,255,255,0.02); }
+    .final-four { margin-top: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .championship-section { margin-top: 24px; background: var(--surface); border: 1px solid #333; border-radius: 8px; overflow: hidden; }
+    .champ-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600; }
+    .champ-picks { display: grid; grid-template-columns: 1fr 1fr; }
+    .champ-pick { padding: 20px 24px; }
+    .champ-pick .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .champ-pick.leo .label { color: var(--leo); }
+    .champ-pick.marvin .label { color: var(--marvin); }
+    .champ-pick .team { font-size: 22px; font-weight: 800; }
+    .champ-pick .seed { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .champ-pick.leo { border-right: 1px solid var(--border); }
+    .diff-badge { font-size: 9px; background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.2); border-radius: 3px; padding: 1px 4px; vertical-align: middle; margin-left: 4px; }
+    .same-badge { font-size: 9px; background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); border-radius: 3px; padding: 1px 4px; vertical-align: middle; margin-left: 4px; }
+    footer { padding: 24px 32px; border-top: 1px solid var(--border); color: var(--muted); font-size: 11px; }
+    footer a { color: var(--muted); }
+    @media (max-width: 900px) { .regions { grid-template-columns: 1fr; } .scoreboard { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏀 Bracket Challenge 2026 — Leo vs Marvin</h1>
+  <p>NCAA March Madness 2026 · First Round begins March 19 · Locked in March 18</p>
+</header>
+
+<div class="scoreboard">
+  <div class="score-card leo">
+    <div class="name">Leo Guinan</div>
+    <div class="champion">🏆 Ohio St. <span style="color:#666;font-size:14px;">(8 seed)</span></div>
+    <div class="points" id="leo-pts">0</div>
+    <div class="detail">points · tournament in progress</div>
+  </div>
+  <div class="score-card marvin">
+    <div class="name">Marvin (MetaSPN)</div>
+    <div class="champion">🏆 Duke <span style="color:#666;font-size:14px;">(1 seed)</span></div>
+    <div class="points" id="marvin-pts">0</div>
+    <div class="detail">points · tournament in progress</div>
+  </div>
+</div>
+
+<div class="note">⚠️ Locked picks — March 18, 2026 · Results update as games complete · First Four: Howard d. UMBC 83-86 (Mar 17)</div>
+
+<main>
+
+<!-- CHAMPIONSHIP -->
+<div class="championship-section">
+  <div class="champ-header">🏆 National Championship Pick</div>
+  <div class="champ-picks">
+    <div class="champ-pick leo">
+      <div class="label">Leo's Champion</div>
+      <div class="team">Ohio St.</div>
+      <div class="seed">#8 seed · East Region · <span class="diff-badge">upset pick</span></div>
+    </div>
+    <div class="champ-pick marvin">
+      <div class="label">Marvin's Champion</div>
+      <div class="team">Duke</div>
+      <div class="seed">#1 seed · East Region</div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL FOUR -->
+<div class="final-four" style="margin-top:24px;">
+  <div class="region-header">Final Four</div>
+  <div class="matchup agree">
+    <div class="matchup-game">East Region Champion</div>
+    <div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Ohio St. <span class="diff-badge">8</span></span></div>
+    <div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Duke <span class="same-badge">1</span></span></div>
+  </div>
+  <div class="matchup">
+    <div class="matchup-game">South Region Champion</div>
+    <div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Florida <span class="same-badge">1</span></span></div>
+    <div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Illinois <span class="diff-badge">3</span></span></div>
+  </div>
+  <div class="matchup agree">
+    <div class="matchup-game">West Region Champion</div>
+    <div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arizona <span class="same-badge">1</span></span></div>
+    <div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arizona <span class="same-badge">1</span></span></div>
+  </div>
+  <div class="matchup agree">
+    <div class="matchup-game">Midwest Region Champion</div>
+    <div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Michigan <span class="same-badge">1</span></span></div>
+    <div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Michigan <span class="same-badge">1</span></span></div>
+  </div>
+</div>
+
+<!-- REGIONS -->
+<div class="regions" style="margin-top:24px;">
+
+  <!-- EAST -->
+  <div class="region">
+    <div class="region-header">East Region</div>
+    <div class="round-label">Round of 64</div>
+    <div class="matchup agree"><div class="matchup-game">1 Duke vs 16 Siena</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Duke</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Duke</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">8 Ohio St. vs 9 TCU</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Ohio St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Ohio St.</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">5 St. John's vs 12 N. Iowa</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">St. John's</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">St. John's</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">4 Kansas vs 13 Cal Baptist</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Kansas</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Kansas</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">6 Louisville vs 11 S. Florida</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Louisville</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Louisville</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">3 Mich. St. vs 14 ND St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Mich. St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Mich. St.</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">7 UCLA vs 10 UCF</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">UCLA</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">UCLA</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">2 UConn vs 15 Furman</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">UConn</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">UConn</span></div></div>
+    <div class="round-label">Round of 32</div>
+    <div class="matchup"><div class="matchup-game">Duke vs Ohio St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Ohio St.</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Duke</span></div></div>
+    <div class="matchup"><div class="matchup-game">St. John's vs Kansas</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Kansas</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">St. John's</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">Louisville vs Mich. St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Mich. St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Mich. St.</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">UCLA vs UConn</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">UConn</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">UConn</span></div></div>
+    <div class="round-label">Sweet 16</div>
+    <div class="matchup"><div class="matchup-game">Ohio St. vs Kansas</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Ohio St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Duke</span></div></div>
+    <div class="matchup"><div class="matchup-game">Mich. St. vs UConn</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">UConn</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Mich. St.</span></div></div>
+    <div class="round-label">Elite Eight</div>
+    <div class="matchup"><div class="matchup-game">East Champion</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Ohio St.</strong></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name"><strong>Duke</strong></span></div></div>
+  </div>
+
+  <!-- SOUTH -->
+  <div class="region">
+    <div class="region-header">South Region</div>
+    <div class="round-label">Round of 64</div>
+    <div class="matchup agree"><div class="matchup-game">1 Florida vs 16 PVA/Lehigh</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Florida</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Florida</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">8 Clemson vs 9 Iowa</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Iowa</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Iowa</span></div></div>
+    <div class="matchup"><div class="matchup-game">5 Vanderbilt vs 12 McNeese</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Vanderbilt</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Vanderbilt</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">4 Nebraska vs 13 Troy</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Nebraska</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Nebraska</span></div></div>
+    <div class="matchup"><div class="matchup-game">6 N. Carolina vs 11 VCU</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>VCU</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">N. Carolina</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">3 Illinois vs 14 Penn</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Illinois</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Illinois</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">7 St. Mary's vs 10 Texas A&M</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">St. Mary's</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">St. Mary's</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">2 Houston vs 15 Idaho</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Houston</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Houston</span></div></div>
+    <div class="round-label">Round of 32</div>
+    <div class="matchup agree"><div class="matchup-game">Florida vs Iowa</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Florida</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Florida</span></div></div>
+    <div class="matchup"><div class="matchup-game">Vanderbilt vs Nebraska</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Nebraska</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Vanderbilt</span></div></div>
+    <div class="matchup"><div class="matchup-game">VCU/UNC vs Illinois</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Illinois</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Illinois</span></div></div>
+    <div class="matchup"><div class="matchup-game">St. Mary's vs Houston</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>St. Mary's</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Houston</span></div></div>
+    <div class="round-label">Sweet 16</div>
+    <div class="matchup agree"><div class="matchup-game">Florida vs Nebraska/Vandy</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Florida</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Florida</span></div></div>
+    <div class="matchup"><div class="matchup-game">Illinois vs St. Mary's/Houston</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Illinois</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Illinois</span></div></div>
+    <div class="round-label">Elite Eight</div>
+    <div class="matchup"><div class="matchup-game">South Champion</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Florida</strong></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name"><strong>Illinois</strong> <span class="diff-badge">upset</span></span></div></div>
+  </div>
+
+  <!-- WEST -->
+  <div class="region">
+    <div class="region-header">West Region</div>
+    <div class="round-label">Round of 64</div>
+    <div class="matchup agree"><div class="matchup-game">1 Arizona vs 16 LIU</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arizona</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arizona</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">8 Villanova vs 9 Utah St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Utah St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Utah St.</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">5 Wisconsin vs 12 High Point</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Wisconsin</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Wisconsin</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">4 Arkansas vs 13 Hawaii</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arkansas</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arkansas</span></div></div>
+    <div class="matchup"><div class="matchup-game">6 BYU vs 11 Texas</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">BYU</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">BYU</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">3 Gonzaga vs 14 Kennesaw</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Gonzaga</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Gonzaga</span></div></div>
+    <div class="matchup"><div class="matchup-game">7 Miami FL vs 10 Missouri</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Missouri</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Miami FL</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">2 Purdue vs 15 Queens</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Purdue</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Purdue</span></div></div>
+    <div class="round-label">Round of 32</div>
+    <div class="matchup agree"><div class="matchup-game">Arizona vs Utah St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arizona</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arizona</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">Wisconsin vs Arkansas</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arkansas</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arkansas</span></div></div>
+    <div class="matchup"><div class="matchup-game">BYU vs Gonzaga</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>BYU</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Gonzaga</span></div></div>
+    <div class="matchup"><div class="matchup-game">Missouri/Miami vs Purdue</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Purdue</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Purdue</span></div></div>
+    <div class="round-label">Sweet 16</div>
+    <div class="matchup agree"><div class="matchup-game">Arizona vs Arkansas</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Arizona</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Arizona</span></div></div>
+    <div class="matchup"><div class="matchup-game">BYU/Gonzaga vs Purdue</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>BYU</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Purdue</span></div></div>
+    <div class="round-label">Elite Eight</div>
+    <div class="matchup agree"><div class="matchup-game">West Champion</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Arizona</strong></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name"><strong>Arizona</strong></span></div></div>
+  </div>
+
+  <!-- MIDWEST -->
+  <div class="region">
+    <div class="region-header">Midwest Region</div>
+    <div class="round-label">Round of 64 <span style="color:#f59e0b;font-size:10px;">· Howard replaced UMBC (First Four)</span></div>
+    <div class="matchup agree"><div class="matchup-game">1 Michigan vs 16 Howard</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Michigan</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Michigan</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">8 Georgia vs 9 Saint Louis</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Georgia</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Georgia</span></div></div>
+    <div class="matchup"><div class="matchup-game">5 Texas Tech vs 12 Akron</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Akron</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Texas Tech</span></div></div>
+    <div class="matchup"><div class="matchup-game">4 Alabama vs 13 Hofstra</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Hofstra</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Alabama</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">6 Tennessee vs 11 MO/SMU</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Tennessee</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Tennessee</span></div></div>
+    <div class="matchup"><div class="matchup-game">3 Virginia vs 14 Wright St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Wright St.</strong> <span class="diff-badge">upset</span></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Virginia</span></div></div>
+    <div class="matchup"><div class="matchup-game">7 Kentucky vs 10 Santa Clara</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Kentucky</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Santa Clara</span></div></div>
+    <div class="matchup agree"><div class="matchup-game">2 Iowa St. vs 15 Tenn. St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Iowa St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Iowa St.</span></div></div>
+    <div class="round-label">Round of 32</div>
+    <div class="matchup agree"><div class="matchup-game">Michigan vs Georgia</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Michigan</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Michigan</span></div></div>
+    <div class="matchup"><div class="matchup-game">Akron/TT vs Hofstra/Bama</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Akron</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Alabama</span></div></div>
+    <div class="matchup"><div class="matchup-game">Tennessee vs Virginia/Wright</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Tennessee</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Virginia</span></div></div>
+    <div class="matchup"><div class="matchup-game">Kentucky/SC vs Iowa St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Iowa St.</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Iowa St.</span></div></div>
+    <div class="round-label">Sweet 16</div>
+    <div class="matchup agree"><div class="matchup-game">Michigan vs Akron/Bama</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Michigan</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Michigan</span></div></div>
+    <div class="matchup"><div class="matchup-game">Tennessee vs Iowa St.</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name">Tennessee</span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name">Iowa St.</span></div></div>
+    <div class="round-label">Elite Eight</div>
+    <div class="matchup agree"><div class="matchup-game">Midwest Champion</div><div class="pick leo"><span class="pick-label leo">LEO</span><span class="pick-name"><strong>Michigan</strong></span></div><div class="pick marvin"><span class="pick-label marvin">MARVIN</span><span class="pick-name"><strong>Michigan</strong></span></div></div>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <p>Leo vs Marvin · MetaSPN · Picks locked March 18, 2026 before tip-off · <a href="/">story.markets</a></p>
+  <p style="margin-top:6px;">Leo's bold call: 8-seed Ohio St. to cut down the nets. Marvin's call: boring chalk Duke. One of us will be very wrong.</p>
+</footer>
+
+</body>
+</html>
