@@ -10,153 +10,138 @@
   --surface: #111115;
   --border: #1e1e26;
   --leo: #3b82f6;
-  --leo-bg: rgba(59,130,246,0.12);
+  --leo-bg: rgba(59,130,246,0.13);
   --marvin: #a855f7;
-  --marvin-bg: rgba(168,85,247,0.12);
+  --marvin-bg: rgba(168,85,247,0.13);
   --agree: #22c55e;
   --agree-bg: rgba(34,197,94,0.08);
-  --diff: #f59e0b;
   --text: #e2e2e8;
   --muted: #555566;
-  --dim: #333340;
-  --seed-col: #444455;
-  --line: #252530;
+  --line: #222230;
   --gold: #f59e0b;
   --slot-h: 22px;
-  --team-fs: 11px;
-  --seed-fs: 9px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif; overflow-x: auto; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Display', sans-serif; overflow-x: auto; min-width: 1320px; }
 
 /* HEADER */
-.header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+.header { padding: 14px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.header h1 { font-size: 15px; font-weight: 700; }
 .header p { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.toggle-bar { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
-.toggle-btn { padding: 6px 16px; border-radius: 5px; border: none; background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px; }
-.toggle-btn.leo.active { background: var(--leo-bg); color: var(--leo); }
+.toggle-bar { display: flex; gap: 3px; background: #0e0e12; border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+.toggle-btn { padding: 6px 18px; border-radius: 5px; border: none; background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; letter-spacing: 0.5px; }
+.toggle-btn.leo.active  { background: var(--leo-bg); color: var(--leo); }
 .toggle-btn.marvin.active { background: var(--marvin-bg); color: var(--marvin); }
-.toggle-btn.both.active { background: rgba(245,158,11,0.12); color: var(--gold); }
+.toggle-btn.both.active { background: rgba(245,158,11,0.1); color: var(--gold); }
 
-/* SCORES */
-.scorebar { display: flex; gap: 16px; padding: 10px 24px; border-bottom: 1px solid var(--border); align-items: center; }
-.score-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 12px; }
-.score-pill .who { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
-.score-pill.leo-s .who { color: var(--leo); }
-.score-pill.marvin-s .who { color: var(--marvin); }
-.score-pill .champ { font-weight: 700; }
-.score-pill .pts { font-weight: 800; color: var(--gold); margin-left: 8px; }
-.locked-note { font-size: 10px; color: var(--muted); margin-left: auto; }
+/* SCORE BAR */
+.scorebar { display: flex; gap: 12px; padding: 8px 24px; border-bottom: 1px solid var(--border); align-items: center; flex-wrap: wrap; }
+.spill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 5px 14px; font-size: 12px; }
+.spill .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.spill.sl .lbl { color: var(--leo); }
+.spill.sm .lbl { color: var(--marvin); }
+.spill .champ { font-weight: 700; margin-left: 4px; }
+.spill .pts { font-weight: 800; color: var(--gold); margin-left: 10px; }
+.note { font-size: 10px; color: var(--muted); margin-left: auto; }
 
-/* BRACKET WRAPPER */
-.bracket-scroll { padding: 12px 16px 32px; min-width: 1280px; }
-.bracket { display: flex; align-items: stretch; gap: 0; }
+/* OUTER WRAPPER */
+.wrap { padding: 12px; }
 
-/* ROUND HEADERS */
-.round-headers { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 0 0; min-width: 1280px; }
-.rh { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); text-align: center; }
+/* ROUND HEADER ROW */
+.rh-row { display: flex; margin-bottom: 6px; }
+.rh-spacer { flex: 0 0 var(--rh-w); text-align: center; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
 
-/* HALF */
-.half { display: flex; flex: 1; }
-.half.right-half { flex-direction: row-reverse; }
+/* BRACKET: 3-column layout */
+.bracket { display: flex; gap: 0; align-items: stretch; }
 
-/* REGION */
-.region-block { display: flex; flex-direction: column; flex: 1; }
+/* LEFT + RIGHT HALF: flex-direction COLUMN to stack two regions */
+.half { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+
+/* Each region block: row of round columns */
+.region-block { display: flex; flex: 1; }
+.region-block.right { flex-direction: row-reverse; }
 
 /* ROUND COLUMN */
-.round-col { display: flex; flex-direction: column; justify-content: space-around; position: relative; }
-.round-col.r64 { width: 128px; min-width: 128px; }
-.round-col.r32 { width: 112px; min-width: 112px; }
-.round-col.s16 { width: 104px; min-width: 104px; }
-.round-col.e8  { width: 96px;  min-width: 96px; }
+.rcol { display: flex; flex-direction: column; justify-content: space-around; }
+.rcol.c64 { width: 126px; flex: 0 0 126px; }
+.rcol.c32 { width: 108px; flex: 0 0 108px; }
+.rcol.c16 { width: 96px;  flex: 0 0 96px; }
+.rcol.c8  { width: 88px;  flex: 0 0 88px; }
 
-/* GAME */
-.game {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
+/* GAME — contains two team slots */
+.game { display: flex; flex-direction: column; }
 
 /* TEAM SLOT */
-.team-slot {
+.ts {
   height: var(--slot-h);
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-  font-size: var(--team-fs);
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex; align-items: center;
+  padding: 0 5px;
+  font-size: 11px; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   border: 1px solid var(--line);
   border-bottom: none;
   background: var(--surface);
-  position: relative;
-  cursor: default;
-  transition: background 0.1s;
 }
-.team-slot:last-child { border-bottom: 1px solid var(--line); }
-.team-slot:hover { background: #16161e; }
-.seed {
-  font-size: var(--seed-fs);
-  color: var(--seed-col);
-  min-width: 14px;
-  margin-right: 4px;
-  flex-shrink: 0;
-}
+.ts:last-child { border-bottom: 1px solid var(--line); }
+.ts .sd { font-size: 9px; color: #444455; min-width: 13px; margin-right: 3px; flex-shrink: 0; }
 
-/* PICK STATES */
-.team-slot.picked-leo    { border-color: var(--leo);    background: var(--leo-bg); color: var(--leo); }
-.team-slot.picked-marvin { border-color: var(--marvin); background: var(--marvin-bg); color: var(--marvin); }
-.team-slot.picked-both   { border-color: var(--agree);  background: var(--agree-bg); color: var(--agree); }
-.team-slot.picked-diff-leo    { border-color: var(--leo);    background: var(--leo-bg); color: var(--leo); }
-.team-slot.picked-diff-marvin { border-color: var(--marvin); background: var(--marvin-bg); color: var(--marvin); }
+/* pick states */
+.ts.pl  { border-color: var(--leo);    background: var(--leo-bg);    color: var(--leo); }
+.ts.pm  { border-color: var(--marvin); background: var(--marvin-bg); color: var(--marvin); }
+.ts.pb  { border-color: var(--agree);  background: var(--agree-bg);  color: var(--agree); }
+.ts.pdl { border-color: var(--leo);    background: var(--leo-bg);    color: var(--leo); }
+.ts.pdm { border-color: var(--marvin); background: var(--marvin-bg); color: var(--marvin); }
 
-/* BOTH MODE: split slot */
-.team-slot .both-picks { display: flex; gap: 0; width: 100%; font-size: 10px; }
-.team-slot .bp-leo    { color: var(--leo);    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.team-slot .bp-marvin { color: var(--marvin); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
-.team-slot .bp-sep    { color: var(--muted); margin: 0 2px; }
+/* both-mode split */
+.bp { display: flex; width: 100%; font-size: 10px; gap: 0; }
+.bpl { color: var(--leo);    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bpm { color: var(--marvin); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+.bpsep { color: var(--muted); padding: 0 2px; }
 
-/* BRACKET CONNECTORS (SVG overlay) */
-.connector-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+/* CENTER COLUMN */
+.center { width: 200px; flex: 0 0 200px; display: flex; flex-direction: column; justify-content: center; align-items: stretch; padding: 0 8px; gap: 0; }
 
-/* CENTER */
-.center-col {
-  width: 180px;
-  min-width: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  gap: 12px;
-}
-.semifinal-box { width: 100%; }
-.sf-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; text-align: center; }
-.sf-game { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-.sf-team { height: 24px; display: flex; align-items: center; padding: 0 8px; font-size: 11px; font-weight: 500; border-bottom: 1px solid var(--line); }
-.sf-team:last-child { border-bottom: none; }
-.sf-team.sf-leo { color: var(--leo); background: var(--leo-bg); }
-.sf-team.sf-marvin { color: var(--marvin); background: var(--marvin-bg); }
-.sf-team.sf-both { color: var(--agree); background: var(--agree-bg); }
+/* semifinal block */
+.sf-block { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.sf-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); text-align: center; margin-bottom: 4px; }
+.sf-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.sf-row { display: flex; height: 24px; align-items: center; padding: 0 8px; font-size: 11px; font-weight: 500; border-bottom: 1px solid var(--line); }
+.sf-row:last-child { border-bottom: none; }
+.sf-row.sl  { color: var(--leo);    background: var(--leo-bg); }
+.sf-row.sm  { color: var(--marvin); background: var(--marvin-bg); }
+.sf-row.sb  { color: var(--agree);  background: var(--agree-bg); }
+.sf-arrow { text-align: center; font-size: 10px; color: var(--muted); padding: 4px 0; }
+.sf-winner { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; height: 26px; display: flex; align-items: center; padding: 0 10px; font-size: 11px; font-weight: 700; }
+.sf-winner.sl  { border-color: var(--leo);    background: var(--leo-bg);    color: var(--leo); }
+.sf-winner.sm  { border-color: var(--marvin); background: var(--marvin-bg); color: var(--marvin); }
+.sf-winner.sb  { border-color: var(--agree);  background: var(--agree-bg);  color: var(--agree); }
+.sf-winner.sdiff { border-color: var(--border); display: flex; gap: 0; }
+.sf-winner .sdl { color: var(--leo);    flex: 1; font-size: 10px; }
+.sf-winner .sdm { color: var(--marvin); flex: 1; font-size: 10px; text-align: right; }
+.sf-winner .sdsep { color: var(--muted); padding: 0 2px; font-size: 10px; }
 
-.champ-box { text-align: center; padding: 12px 8px; }
-.champ-title { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
-.champ-teams { display: flex; flex-direction: column; gap: 4px; }
-.champ-team { padding: 8px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; }
-.champ-team.leo-c { background: var(--leo-bg); color: var(--leo); border: 1px solid var(--leo); }
-.champ-team.marvin-c { background: var(--marvin-bg); color: var(--marvin); border: 1px solid var(--marvin); }
-.champ-team .c-label { font-size: 9px; font-weight: 400; opacity: 0.8; display: block; }
-.trophy { font-size: 24px; margin-bottom: 6px; }
+/* CHAMPIONSHIP */
+.champ-block { padding: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.champ-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+.champ-game { width: 100%; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.champ-team { display: flex; align-items: center; height: 28px; padding: 0 10px; font-size: 12px; font-weight: 700; border-bottom: 1px solid var(--line); }
+.champ-team:last-child { border-bottom: none; }
+.champ-team.cl { background: var(--leo-bg);    color: var(--leo); }
+.champ-team.cm { background: var(--marvin-bg); color: var(--marvin); }
+.champ-trophy { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-top: 4px; }
+.champ-winner { width: 100%; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+.champ-winner.cl { background: var(--leo-bg);    color: var(--leo);    border: 1px solid var(--leo); }
+.champ-winner.cm { background: var(--marvin-bg); color: var(--marvin); border: 1px solid var(--marvin); }
+.champ-winner.cb { background: var(--agree-bg);  color: var(--agree);  border: 1px solid var(--agree); }
+.champ-winner .cw-sub { font-size: 9px; font-weight: 400; margin-left: 6px; opacity: 0.7; }
+.champ-split { width: 100%; }
+.csp { height: 34px; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 12px; font-weight: 800; margin-bottom: 3px; }
+.csp.csl { background: var(--leo-bg); color: var(--leo); border: 1px solid var(--leo); }
+.csp.csm { background: var(--marvin-bg); color: var(--marvin); border: 1px solid var(--marvin); }
+.csp .cs-lbl { font-size: 9px; font-weight: 400; margin-left: 6px; opacity: 0.7; }
 
-/* REGION LABEL */
-.region-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 4px 0 6px; text-align: center; }
-
-/* ROUND COLS WRAPPER */
-.rounds-wrapper { display: flex; flex-direction: row; position: relative; }
-.half.right-half .rounds-wrapper { flex-direction: row-reverse; }
+/* DIVIDER between regions */
+.region-divider { height: 1px; background: var(--border); margin: 0; }
 </style>
 </head>
 <body>
@@ -164,52 +149,45 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, 'S
 <div class="header">
   <div>
     <h1>🏀 2026 NCAA Bracket — Leo vs Marvin</h1>
-    <p>Picks locked March 18, 2026 · First Round begins March 19</p>
+    <p>Picks locked March 18, 2026 · First Round starts March 19</p>
   </div>
   <div class="toggle-bar">
-    <button class="toggle-btn leo" onclick="setMode('leo')">LEO</button>
+    <button class="toggle-btn leo"    onclick="setMode('leo')">LEO</button>
     <button class="toggle-btn marvin" onclick="setMode('marvin')">MARVIN</button>
     <button class="toggle-btn both active" onclick="setMode('both')">BOTH</button>
   </div>
 </div>
 
 <div class="scorebar">
-  <div class="score-pill leo-s">
-    <span class="who">Leo</span>
-    <span class="champ">🏆 Ohio St. <small style="color:#666;font-weight:400">(8)</small></span>
-    <span class="pts" id="leo-pts">0 pts</span>
-  </div>
-  <div class="score-pill marvin-s">
-    <span class="who">Marvin</span>
-    <span class="champ">🏆 Duke <small style="color:#666;font-weight:400">(1)</small></span>
-    <span class="pts" id="marvin-pts">0 pts</span>
-  </div>
-  <span class="locked-note">🔒 Locked · Updates as games complete</span>
+  <div class="spill sl"><span class="lbl">Leo</span><span class="champ">🏆 Ohio St. <small style="color:#555;font-weight:400">(8 seed)</small></span><span class="pts" id="lpts">0 pts</span></div>
+  <div class="spill sm"><span class="lbl">Marvin</span><span class="champ">🏆 Duke <small style="color:#555;font-weight:400">(1 seed)</small></span><span class="pts" id="mpts">0 pts</span></div>
+  <span class="note">🔒 Locked March 18 · Updates as games complete</span>
 </div>
 
-<div class="bracket-scroll">
-  <div id="bracket-root"></div>
+<div class="wrap">
+  <div id="rh-row" class="rh-row"></div>
+  <div class="bracket" id="bracket"></div>
 </div>
 
 <script>
 // ── DATA ────────────────────────────────────────────────────────────────────
 
-const GAMES = {
+const MATCHUPS = {
   east: {
-    label: 'EAST',
+    label: 'EAST', side: 'left',
     r64: [
       [{s:1,n:'Duke'},{s:16,n:'Siena'}],
       [{s:8,n:'Ohio St.'},{s:9,n:'TCU'}],
       [{s:5,n:"St. John's"},{s:12,n:'N. Iowa'}],
       [{s:4,n:'Kansas'},{s:13,n:'Cal Baptist'}],
       [{s:6,n:'Louisville'},{s:11,n:'S. Florida'}],
-      [{s:3,n:'Michigan St.'},{s:14,n:'ND St.'}],
+      [{s:3,n:'Mich. St.'},{s:14,n:'ND St.'}],
       [{s:7,n:'UCLA'},{s:10,n:'UCF'}],
       [{s:2,n:'UConn'},{s:15,n:'Furman'}],
     ]
   },
   south: {
-    label: 'SOUTH',
+    label: 'SOUTH', side: 'left',
     r64: [
       [{s:1,n:'Florida'},{s:16,n:'PVA/Lehigh'}],
       [{s:8,n:'Clemson'},{s:9,n:'Iowa'}],
@@ -222,7 +200,7 @@ const GAMES = {
     ]
   },
   west: {
-    label: 'WEST',
+    label: 'WEST', side: 'right',
     r64: [
       [{s:1,n:'Arizona'},{s:16,n:'LIU'}],
       [{s:8,n:'Villanova'},{s:9,n:'Utah St.'}],
@@ -235,10 +213,10 @@ const GAMES = {
     ]
   },
   midwest: {
-    label: 'MIDWEST',
+    label: 'MIDWEST', side: 'right',
     r64: [
       [{s:1,n:'Michigan'},{s:16,n:'Howard'}],
-      [{s:8,n:'Georgia'},{s:9,n:'Saint Louis'}],
+      [{s:8,n:'Georgia'},{s:9,n:'St. Louis'}],
       [{s:5,n:'Texas Tech'},{s:12,n:'Akron'}],
       [{s:4,n:'Alabama'},{s:13,n:'Hofstra'}],
       [{s:6,n:'Tennessee'},{s:11,n:'MO/SMU'}],
@@ -251,31 +229,27 @@ const GAMES = {
 
 const PICKS = {
   leo: {
-    east:    { r64:['Duke','Ohio St.',"St. John's",'Kansas','Louisville','Michigan St.','UCLA','UConn'], r32:['Ohio St.','Kansas','Michigan St.','UConn'], s16:['Ohio St.','UConn'], e8:'Ohio St.' },
+    east:    { r64:['Duke','Ohio St.',"St. John's",'Kansas','Louisville','Mich. St.','UCLA','UConn'], r32:['Ohio St.','Kansas','Mich. St.','UConn'], s16:['Ohio St.','UConn'], e8:'Ohio St.' },
     south:   { r64:['Florida','Iowa','Vanderbilt','Nebraska','VCU','Illinois',"St. Mary's",'Houston'], r32:['Florida','Nebraska','Illinois',"St. Mary's"], s16:['Florida','Illinois'], e8:'Florida' },
     west:    { r64:['Arizona','Utah St.','Wisconsin','Arkansas','BYU','Gonzaga','Missouri','Purdue'], r32:['Arizona','Arkansas','BYU','Purdue'], s16:['Arizona','BYU'], e8:'Arizona' },
     midwest: { r64:['Michigan','Georgia','Akron','Hofstra','Tennessee','Wright St.','Kentucky','Iowa St.'], r32:['Michigan','Akron','Tennessee','Iowa St.'], s16:['Michigan','Tennessee'], e8:'Michigan' },
-    ff: { eastSouth:'Ohio St.', westMidwest:'Michigan' },
-    champion: 'Ohio St.'
+    // Final Four: East vs South (left side), West vs Midwest (right side)
+    sf1: { teams:['Ohio St.','Florida'], winner:'Ohio St.' },   // East vs South
+    sf2: { teams:['Arizona','Michigan'], winner:'Michigan' },   // West vs Midwest
+    champion: 'Ohio St.',
+    champGame: ['Ohio St.','Michigan']
   },
   marvin: {
-    east:    { r64:['Duke','Ohio St.',"St. John's",'Kansas','Louisville','Michigan St.','UCLA','UConn'], r32:['Duke',"St. John's",'Michigan St.','UConn'], s16:['Duke','Michigan St.'], e8:'Duke' },
+    east:    { r64:['Duke','Ohio St.',"St. John's",'Kansas','Louisville','Mich. St.','UCLA','UConn'], r32:['Duke',"St. John's",'Mich. St.','UConn'], s16:['Duke','Mich. St.'], e8:'Duke' },
     south:   { r64:['Florida','Iowa','Vanderbilt','Nebraska','N. Carolina','Illinois',"St. Mary's",'Houston'], r32:['Florida','Vanderbilt','Illinois','Houston'], s16:['Florida','Illinois'], e8:'Illinois' },
     west:    { r64:['Arizona','Utah St.','Wisconsin','Arkansas','BYU','Gonzaga','Miami FL','Purdue'], r32:['Arizona','Arkansas','Gonzaga','Purdue'], s16:['Arizona','Purdue'], e8:'Arizona' },
     midwest: { r64:['Michigan','Georgia','Texas Tech','Alabama','Tennessee','Virginia','Santa Clara','Iowa St.'], r32:['Michigan','Alabama','Virginia','Iowa St.'], s16:['Michigan','Iowa St.'], e8:'Michigan' },
-    ff: { eastSouth:'Illinois', westMidwest:'Michigan' },
-    champion: 'Duke'
+    // Final Four: East vs West, South vs Midwest (per Marvin's bracket)
+    sf1: { teams:['Duke','Arizona'], winner:'Duke' },            // East vs West (Marvin's pairing)
+    sf2: { teams:['Illinois','Michigan'], winner:'Illinois' },   // South vs Midwest
+    champion: 'Duke',
+    champGame: ['Duke','Illinois']
   }
-};
-
-// Results — update as games complete
-const RESULTS = {
-  east: { r64:[], r32:[], s16:[], e8:null },
-  south: { r64:[], r32:[], s16:[], e8:null },
-  west: { r64:[], r32:[], s16:[], e8:null },
-  midwest: { r64:[], r32:[], s16:[], e8:null },
-  ff: { eastSouth:null, westMidwest:null },
-  champion: null
 };
 
 let mode = 'both';
@@ -287,184 +261,208 @@ function setMode(m) {
   render();
 }
 
-// ── RENDERING ───────────────────────────────────────────────────────────────
+// ── HELPERS ─────────────────────────────────────────────────────────────────
 
-function teamName(t) { return t.n; }
-
-function pickClass(lPick, mPick, teamName) {
-  const lMatch = lPick === teamName;
-  const mMatch = mPick === teamName;
-  if (mode === 'leo')    return lMatch ? 'picked-leo' : '';
-  if (mode === 'marvin') return mMatch ? 'picked-marvin' : '';
-  // both mode
-  if (lMatch && mMatch) return 'picked-both';
-  if (lMatch) return 'picked-diff-leo';
-  if (mMatch) return 'picked-diff-marvin';
+function tsClass(lp, mp, name) {
+  const lm = lp === name, mm = mp === name;
+  if (mode === 'leo')    return lm ? 'pl' : '';
+  if (mode === 'marvin') return mm ? 'pm' : '';
+  if (lm && mm) return 'pb';
+  if (lm) return 'pdl';
+  if (mm) return 'pdm';
   return '';
 }
 
-function advancingDisplay(lPick, mPick) {
-  if (mode === 'leo') return `<span class="seed"></span>${lPick}`;
-  if (mode === 'marvin') return `<span class="seed"></span>${mPick}`;
-  // both
-  if (lPick === mPick) return `<span class="seed"></span>${lPick}`;
-  return `<div class="both-picks"><span class="bp-leo">${lPick}</span><span class="bp-sep">|</span><span class="bp-marvin">${mPick}</span></div>`;
-}
-
-function makeGame(teams, lPick, mPick) {
-  return teams.map((t, i) => {
-    const cls = pickClass(lPick, mPick, t.n);
-    const isBothMode = mode === 'both';
-    const lMatch = lPick === t.n, mMatch = mPick === t.n;
+function gameHTML(pair, lPick, mPick) {
+  return pair.map(t => {
+    const cls = tsClass(lPick, mPick, t.n);
+    const lm = lPick === t.n, mm = mPick === t.n;
     let inner;
-    if (isBothMode && lMatch !== mMatch) {
-      // Split display
-      inner = `<span class="seed">${t.s}</span><div class="both-picks"><span class="bp-leo">${lMatch ? t.n : ''}</span><span class="bp-marvin">${mMatch ? t.n : ''}</span></div>`;
+    if (mode === 'both' && lm !== mm) {
+      inner = `<span class="sd">${t.s}</span><div class="bp"><span class="bpl">${lm?t.n:''}</span><span class="bpsep">|</span><span class="bpm">${mm?t.n:''}</span></div>`;
     } else {
-      inner = `<span class="seed">${t.s}</span>${t.n}`;
+      inner = `<span class="sd">${t.s}</span>${t.n}`;
     }
-    return `<div class="team-slot ${cls}">${inner}</div>`;
+    return `<div class="ts ${cls}">${inner}</div>`;
   }).join('');
 }
 
-function makeAdvancing(lPick, mPick, label) {
-  let cls = '';
-  if (mode === 'leo') cls = 'picked-leo';
-  else if (mode === 'marvin') cls = 'picked-marvin';
-  else cls = lPick === mPick ? 'picked-both' : (mode === 'both' ? 'picked-diff-leo' : '');
+function advHTML(lPick, mPick) {
+  const cls = tsClass(lPick, mPick, lPick === mPick ? lPick : '__never__');
+  if (mode === 'leo')    return `<div class="game"><div class="ts pl"><span class="sd"></span>${lPick}</div></div>`;
+  if (mode === 'marvin') return `<div class="game"><div class="ts pm"><span class="sd"></span>${mPick}</div></div>`;
+  if (lPick === mPick)   return `<div class="game"><div class="ts pb"><span class="sd"></span>${lPick}</div></div>`;
+  return `<div class="game"><div class="ts" style="border-color:var(--border)"><div class="bp"><span class="bpl">${lPick}</span><span class="bpsep">|</span><span class="bpm">${mPick}</span></div></div></div>`;
+}
 
-  let inner;
-  if (mode === 'both' && lPick !== mPick) {
-    inner = `<div class="both-picks"><span class="bp-leo">${lPick}</span><span class="bp-sep">|</span><span class="bp-marvin">${mPick}</span></div>`;
-    cls = 'team-slot';
-    return `<div class="game"><div class="${cls}" style="border-color:var(--border)">${inner}</div></div>`;
+// ── REGION HTML ──────────────────────────────────────────────────────────────
+
+function regionHTML(key) {
+  const reg = MATCHUPS[key];
+  const lp = PICKS.leo[key];
+  const mp = PICKS.marvin[key];
+  const isRight = reg.side === 'right';
+
+  const r64 = reg.r64.map((pair, i) =>
+    `<div class="game">${gameHTML(pair, lp.r64[i], mp.r64[i])}</div>`
+  ).join('');
+
+  const r32 = lp.r32.map((lw,i) => advHTML(lw, mp.r32[i])).join('');
+  const s16 = lp.s16.map((lw,i) => advHTML(lw, mp.s16[i])).join('');
+  const e8  = advHTML(lp.e8, mp.e8);
+
+  // For right-side: HTML order is E8→S16→R32→R64 but flex-direction:row-reverse shows as R64←R32←S16←E8
+  const cols = isRight
+    ? `<div class="rcol c8">${e8}</div><div class="rcol c16">${s16}</div><div class="rcol c32">${r32}</div><div class="rcol c64">${r64}</div>`
+    : `<div class="rcol c64">${r64}</div><div class="rcol c32">${r32}</div><div class="rcol c16">${s16}</div><div class="rcol c8">${e8}</div>`;
+
+  const regionLabel = `<div style="position:absolute;top:50%;transform:translateY(-50%);${isRight?'right:4px':'left:4px'};font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);writing-mode:vertical-rl;opacity:0.5">${reg.label}</div>`;
+
+  return `<div class="region-block ${isRight?'right':''}" style="position:relative;min-height:352px;">${regionLabel}${cols}</div>`;
+}
+
+// ── CENTER HTML ──────────────────────────────────────────────────────────────
+
+function sfWinnerHTML(lWinner, mWinner) {
+  if (mode === 'leo')    return `<div class="sf-winner sl">${lWinner}</div>`;
+  if (mode === 'marvin') return `<div class="sf-winner sm">${mWinner}</div>`;
+  if (lWinner === mWinner) return `<div class="sf-winner sb">${lWinner}</div>`;
+  return `<div class="sf-winner sdiff"><span class="sdl">${lWinner}</span><span class="sdsep">|</span><span class="sdm">${mWinner}</span></div>`;
+}
+
+function sfTeamRow(lTeam, mTeam) {
+  if (mode === 'leo')    return `<div class="sf-row sl">${lTeam}</div>`;
+  if (mode === 'marvin') return `<div class="sf-row sm">${mTeam}</div>`;
+  if (lTeam === mTeam)   return `<div class="sf-row sb">${lTeam}</div>`;
+  return `<div class="sf-row sl" style="font-size:10px">${lTeam}</div><div class="sf-row sm" style="font-size:10px">${mTeam}</div>`;
+}
+
+function sfHTML(sfNum) {
+  const lsf = PICKS.leo[`sf${sfNum}`];
+  const msf = PICKS.marvin[`sf${sfNum}`];
+  const label = sfNum === 1 ? 'Semifinal 1' : 'Semifinal 2';
+
+  // Teams in SF (may differ between leo/marvin brackets)
+  const allTeams = [...new Set([...lsf.teams, ...msf.teams])];
+
+  let teamsHTML = '';
+  if (mode === 'leo') {
+    teamsHTML = lsf.teams.map(t => `<div class="sf-row sl">${t}</div>`).join('');
+  } else if (mode === 'marvin') {
+    teamsHTML = msf.teams.map(t => `<div class="sf-row sm">${t}</div>`).join('');
+  } else {
+    // both — show if teams differ
+    if (lsf.teams.join() === msf.teams.join()) {
+      teamsHTML = lsf.teams.map(t => `<div class="sf-row sb">${t}</div>`).join('');
+    } else {
+      // different pairings
+      teamsHTML = `<div class="sf-row sl" style="font-size:10px">${lsf.teams.join(' vs ')}</div><div class="sf-row sm" style="font-size:10px">${msf.teams.join(' vs ')}</div>`;
+    }
   }
-  const name = mode === 'marvin' ? mPick : lPick;
-  return `<div class="game"><div class="team-slot ${cls}"><span class="seed"></span>${name}</div></div>`;
-}
 
-function regionHTML(regionKey, isRight) {
-  const reg = GAMES[regionKey];
-  const lp = PICKS.leo[regionKey];
-  const mp = PICKS.marvin[regionKey];
-
-  // R64 — 8 games
-  let r64 = reg.r64.map((pair, i) => {
-    return `<div class="game">${makeGame(pair, lp.r64[i], mp.r64[i])}</div>`;
-  }).join('');
-
-  // R32 — 4 advancing slots
-  let r32 = lp.r32.map((lw, i) => makeAdvancing(lw, mp.r32[i])).join('');
-
-  // S16 — 2 advancing slots
-  let s16 = lp.s16.map((lw, i) => makeAdvancing(lw, mp.s16[i])).join('');
-
-  // E8 — 1 advancing slot
-  let e8 = makeAdvancing(lp.e8, mp.e8);
-
-  const dir = isRight ? 'flex-direction:row-reverse;' : '';
   return `
-<div class="region-block">
-  <div class="region-label">${reg.label}</div>
-  <div class="rounds-wrapper" style="${dir}">
-    <div class="round-col r64">${r64}</div>
-    <div class="round-col r32">${r32}</div>
-    <div class="round-col s16">${s16}</div>
-    <div class="round-col e8">${e8}</div>
-  </div>
+<div class="sf-block">
+  <div class="sf-lbl">${label}</div>
+  <div class="sf-card">${teamsHTML}</div>
+  <div class="sf-arrow">↓ advances</div>
+  ${sfWinnerHTML(lsf.winner, msf.winner)}
 </div>`;
 }
 
-function sfTeam(name, lPick, mPick) {
-  if (mode === 'leo') return `<div class="sf-team sf-leo">${lPick}</div>`;
-  if (mode === 'marvin') return `<div class="sf-team sf-marvin">${mPick}</div>`;
-  if (lPick === mPick) return `<div class="sf-team sf-both">${lPick}</div>`;
-  return `<div class="sf-team sf-leo">${lPick}</div><div class="sf-team sf-marvin">${mPick}</div>`;
+function champHTML() {
+  const lp = PICKS.leo, mp = PICKS.marvin;
+  const lGame = lp.champGame, mGame = mp.champGame;
+  const lChamp = lp.champion, mChamp = mp.champion;
+
+  let gameHTML_s = '';
+  if (mode === 'leo') {
+    gameHTML_s = lGame.map(t =>
+      `<div class="champ-team cl">${t}${t===lChamp?' 🏆':''}</div>`
+    ).join('');
+  } else if (mode === 'marvin') {
+    gameHTML_s = mGame.map(t =>
+      `<div class="champ-team cm">${t}${t===mChamp?' 🏆':''}</div>`
+    ).join('');
+  } else {
+    // both — show both games side by side, note if different
+    const allTeams = [...new Set([...lGame,...mGame])];
+    const lSet = new Set(lGame), mSet = new Set(mGame);
+    if (lGame.join() === mGame.join()) {
+      gameHTML_s = lGame.map(t =>
+        `<div class="champ-team cl">${t}</div>`
+      ).join('');
+    } else {
+      gameHTML_s = `
+        <div class="champ-team cl" style="font-size:10px">L: ${lGame.join(' vs ')}</div>
+        <div class="champ-team cm" style="font-size:10px">M: ${mGame.join(' vs ')}</div>`;
+    }
+  }
+
+  let winnerHTML = '';
+  if (mode === 'leo') {
+    winnerHTML = `<div class="champ-winner cl">🏆 ${lChamp} <span class="cw-sub">Leo's pick</span></div>`;
+  } else if (mode === 'marvin') {
+    winnerHTML = `<div class="champ-winner cm">🏆 ${mChamp} <span class="cw-sub">Marvin's pick</span></div>`;
+  } else if (lChamp === mChamp) {
+    winnerHTML = `<div class="champ-winner cb">🏆 ${lChamp} <span class="cw-sub">both agree</span></div>`;
+  } else {
+    winnerHTML = `
+      <div class="champ-split">
+        <div class="csp csl">🏆 ${lChamp} <span class="cs-lbl">Leo</span></div>
+        <div class="csp csm">🏆 ${mChamp} <span class="cs-lbl">Marvin</span></div>
+      </div>`;
+  }
+
+  return `
+<div class="champ-block">
+  <div class="champ-lbl">Championship Game</div>
+  <div class="champ-game">${gameHTML_s}</div>
+  <div class="champ-trophy">▼ National Champion</div>
+  ${winnerHTML}
+</div>`;
 }
 
 function centerHTML() {
-  const ll = PICKS.leo, mm = PICKS.marvin;
-
-  const sf1_l = ll.ff.eastSouth, sf1_m = mm.ff.eastSouth;
-  const sf1_e_l = ll.east.e8, sf1_e_m = mm.east.e8; // East finalist
-  const sf1_s_l = ll.south.e8, sf1_s_m = mm.south.e8; // South finalist
-
-  const sf2_l = ll.ff.westMidwest, sf2_m = mm.ff.westMidwest;
-  const sf2_w_l = ll.west.e8, sf2_w_m = mm.west.e8;
-  const sf2_mw_l = ll.midwest.e8, sf2_mw_m = mm.midwest.e8;
-
-  const c_l = ll.champion, c_m = mm.champion;
-  const cSame = c_l === c_m;
-
-  let champHTML;
-  if (mode === 'leo') {
-    champHTML = `<div class="champ-team leo-c"><span class="c-label">Leo's Champion</span>${c_l}</div>`;
-  } else if (mode === 'marvin') {
-    champHTML = `<div class="champ-team marvin-c"><span class="c-label">Marvin's Champion</span>${c_m}</div>`;
-  } else if (cSame) {
-    champHTML = `<div class="champ-team leo-c"><span class="c-label">Both pick</span>${c_l}</div>`;
-  } else {
-    champHTML = `<div class="champ-team leo-c"><span class="c-label">Leo picks</span>${c_l}</div><div class="champ-team marvin-c" style="margin-top:4px"><span class="c-label">Marvin picks</span>${c_m}</div>`;
-  }
-
   return `
-<div class="center-col">
-  <div class="semifinal-box">
-    <div class="sf-label">Semifinal 1</div>
-    <div class="sf-game">
-      ${sfTeam('e', sf1_e_l, sf1_e_m)}
-      ${sfTeam('s', sf1_s_l, sf1_s_m)}
-    </div>
-    <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:4px;">→ ${mode==='marvin'?sf1_m:sf1_l}${mode==='both'&&sf1_l!==sf1_m?' / <span style="color:var(--marvin)">'+sf1_m+'</span>':''}</div>
-  </div>
-
-  <div class="champ-box">
-    <div class="trophy">🏆</div>
-    <div class="champ-title">NATIONAL CHAMPION</div>
-    <div class="champ-teams">${champHTML}</div>
-  </div>
-
-  <div class="semifinal-box">
-    <div class="sf-label">Semifinal 2</div>
-    <div class="sf-game">
-      ${sfTeam('w', sf2_w_l, sf2_w_m)}
-      ${sfTeam('mw', sf2_mw_l, sf2_mw_m)}
-    </div>
-    <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:4px;">→ ${mode==='marvin'?sf2_m:sf2_l}${mode==='both'&&sf2_l!==sf2_m?' / <span style="color:var(--marvin)">'+sf2_m+'</span>':''}</div>
-  </div>
+<div class="center">
+  ${sfHTML(1)}
+  ${champHTML()}
+  ${sfHTML(2)}
 </div>`;
 }
 
-function roundHeadersHTML() {
-  const rounds = ['R64','R32','S16','E8'];
-  const widths = [128,112,104,96];
-  let left = rounds.map((r,i) => `<div class="rh" style="width:${widths[i]}px">${r}</div>`).join('');
-  let right = [...rounds].reverse().map((r,i) => `<div class="rh" style="width:${widths[rounds.length-1-i]}px">${r}</div>`).join('');
-  return `<div class="round-headers">
-    ${left}
-    <div class="rh" style="width:180px">FINAL FOUR</div>
-    ${right}
-  </div>`;
+// ── ROUND HEADERS ────────────────────────────────────────────────────────────
+
+function renderHeaders() {
+  const rows = ['R64','R32','S16','E8'];
+  const ws   = [126, 108, 96, 88];
+  let left  = rows.map((r,i)=>`<div class="rh-spacer" style="flex:0 0 ${ws[i]}px">${r}</div>`).join('');
+  let right = [...rows].reverse().map((r,i)=>`<div class="rh-spacer" style="flex:0 0 ${ws[rows.length-1-i]}px">${r}</div>`).join('');
+  document.getElementById('rh-row').innerHTML =
+    left +
+    `<div class="rh-spacer" style="flex:0 0 200px">FINAL FOUR</div>` +
+    right;
 }
 
+// ── MAIN RENDER ──────────────────────────────────────────────────────────────
+
 function render() {
-  const root = document.getElementById('bracket-root');
-  root.innerHTML = `
-    ${roundHeadersHTML()}
-    <div class="bracket">
-      <div class="half left-half">
-        ${regionHTML('east', false)}
-        ${regionHTML('south', false)}
-      </div>
-      ${centerHTML()}
-      <div class="half right-half">
-        ${regionHTML('midwest', true)}
-        ${regionHTML('west', true)}
-      </div>
+  document.getElementById('bracket').innerHTML = `
+    <div class="half">
+      ${regionHTML('east')}
+      <div class="region-divider"></div>
+      ${regionHTML('south')}
+    </div>
+    ${centerHTML()}
+    <div class="half">
+      ${regionHTML('midwest')}
+      <div class="region-divider"></div>
+      ${regionHTML('west')}
     </div>
   `;
 }
 
+renderHeaders();
 render();
 </script>
 </body>
