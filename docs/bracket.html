@@ -386,7 +386,7 @@ function centerHTML() {
   const ll = PICKS.leo, mm = PICKS.marvin;
 
   const sf1_l = ll.ff.eastSouth, sf1_m = mm.ff.eastSouth;
-  const sf1_e_l = ll.e8, sf1_e_m = mm.e8; // East finalist
+  const sf1_e_l = ll.east.e8, sf1_e_m = mm.east.e8; // East finalist
   const sf1_s_l = ll.south.e8, sf1_s_m = mm.south.e8; // South finalist
 
   const sf2_l = ll.ff.westMidwest, sf2_m = mm.ff.westMidwest;
@@ -458,8 +458,8 @@ function render() {
       </div>
       ${centerHTML()}
       <div class="half right-half">
-        ${regionHTML('west', true)}
         ${regionHTML('midwest', true)}
+        ${regionHTML('west', true)}
       </div>
     </div>
   `;
