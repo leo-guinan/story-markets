@@ -234,8 +234,8 @@ const PICKS = {
     west:    { r64:['Arizona','Utah St.','Wisconsin','Arkansas','BYU','Gonzaga','Missouri','Purdue'], r32:['Arizona','Arkansas','BYU','Purdue'], s16:['Arizona','BYU'], e8:'Arizona' },
     midwest: { r64:['Michigan','Georgia','Akron','Hofstra','Tennessee','Wright St.','Kentucky','Iowa St.'], r32:['Michigan','Akron','Tennessee','Iowa St.'], s16:['Michigan','Tennessee'], e8:'Michigan' },
     // Final Four: East vs South (left side), West vs Midwest (right side)
-    sf1: { teams:['Ohio St.','Florida'], winner:'Ohio St.' },   // East vs South
-    sf2: { teams:['Arizona','Michigan'], winner:'Michigan' },   // West vs Midwest
+    sf1: { label:'East vs South', teams:['Ohio St.','Florida'],  winner:'Ohio St.' },
+    sf2: { label:'West vs Midwest', teams:['Arizona','Michigan'], winner:'Michigan' },
     champion: 'Ohio St.',
     champGame: ['Ohio St.','Michigan']
   },
@@ -244,9 +244,9 @@ const PICKS = {
     south:   { r64:['Florida','Iowa','Vanderbilt','Nebraska','N. Carolina','Illinois',"St. Mary's",'Houston'], r32:['Florida','Vanderbilt','Illinois','Houston'], s16:['Florida','Illinois'], e8:'Illinois' },
     west:    { r64:['Arizona','Utah St.','Wisconsin','Arkansas','BYU','Gonzaga','Miami FL','Purdue'], r32:['Arizona','Arkansas','Gonzaga','Purdue'], s16:['Arizona','Purdue'], e8:'Arizona' },
     midwest: { r64:['Michigan','Georgia','Texas Tech','Alabama','Tennessee','Virginia','Santa Clara','Iowa St.'], r32:['Michigan','Alabama','Virginia','Iowa St.'], s16:['Michigan','Iowa St.'], e8:'Michigan' },
-    // Final Four: East vs West, South vs Midwest (per Marvin's bracket)
-    sf1: { teams:['Duke','Arizona'], winner:'Duke' },            // East vs West (Marvin's pairing)
-    sf2: { teams:['Illinois','Michigan'], winner:'Illinois' },   // South vs Midwest
+    // Final Four: East vs West, Midwest vs South — DIFFERENT structure from Leo
+    sf1: { label:'East vs West',      teams:['Duke','Arizona'],    winner:'Duke' },
+    sf2: { label:'Midwest vs South',  teams:['Michigan','Illinois'], winner:'Illinois' },
     champion: 'Duke',
     champGame: ['Duke','Illinois']
   }
@@ -340,33 +340,48 @@ function sfTeamRow(lTeam, mTeam) {
 function sfHTML(sfNum) {
   const lsf = PICKS.leo[`sf${sfNum}`];
   const msf = PICKS.marvin[`sf${sfNum}`];
-  const label = sfNum === 1 ? 'Semifinal 1' : 'Semifinal 2';
+  const sameMatchup = lsf.teams.join() === msf.teams.join();
 
-  // Teams in SF (may differ between leo/marvin brackets)
-  const allTeams = [...new Set([...lsf.teams, ...msf.teams])];
-
-  let teamsHTML = '';
+  let card = '';
   if (mode === 'leo') {
-    teamsHTML = lsf.teams.map(t => `<div class="sf-row sl">${t}</div>`).join('');
+    card = `
+      <div class="sf-lbl" style="color:var(--leo)">${lsf.label}</div>
+      <div class="sf-card">${lsf.teams.map(t=>`<div class="sf-row sl">${t}</div>`).join('')}</div>
+      <div class="sf-arrow">↓</div>
+      ${sfWinnerHTML(lsf.winner, msf.winner)}`;
   } else if (mode === 'marvin') {
-    teamsHTML = msf.teams.map(t => `<div class="sf-row sm">${t}</div>`).join('');
+    card = `
+      <div class="sf-lbl" style="color:var(--marvin)">${msf.label}</div>
+      <div class="sf-card">${msf.teams.map(t=>`<div class="sf-row sm">${t}</div>`).join('')}</div>
+      <div class="sf-arrow">↓</div>
+      ${sfWinnerHTML(lsf.winner, msf.winner)}`;
   } else {
-    // both — show if teams differ
-    if (lsf.teams.join() === msf.teams.join()) {
-      teamsHTML = lsf.teams.map(t => `<div class="sf-row sb">${t}</div>`).join('');
+    // BOTH mode — show each person's matchup clearly when they differ
+    if (sameMatchup) {
+      card = `
+        <div class="sf-lbl" style="color:var(--agree)">${lsf.label} <span style="font-size:8px">(agree)</span></div>
+        <div class="sf-card">${lsf.teams.map(t=>`<div class="sf-row sb">${t}</div>`).join('')}</div>
+        <div class="sf-arrow">↓</div>
+        ${sfWinnerHTML(lsf.winner, msf.winner)}`;
     } else {
-      // different pairings
-      teamsHTML = `<div class="sf-row sl" style="font-size:10px">${lsf.teams.join(' vs ')}</div><div class="sf-row sm" style="font-size:10px">${msf.teams.join(' vs ')}</div>`;
+      // Different pairings entirely
+      card = `
+        <div class="sf-lbl" style="color:var(--diff);font-size:8px">⚡ DIFFERENT PAIRINGS</div>
+        <div class="sf-card">
+          <div class="sf-row sl" style="font-size:9px;opacity:0.8">LEO: ${lsf.label}</div>
+          <div class="sf-row sl" style="font-size:10px">${lsf.teams.join(' vs ')}</div>
+          <div class="sf-row sm" style="font-size:9px;opacity:0.8;border-top:1px solid var(--border)">MARVIN: ${msf.label}</div>
+          <div class="sf-row sm" style="font-size:10px">${msf.teams.join(' vs ')}</div>
+        </div>
+        <div class="sf-arrow" style="display:flex;gap:4px;justify-content:center">
+          <span style="color:var(--leo);font-size:10px">↓${lsf.winner}</span>
+          <span style="color:var(--muted)">|</span>
+          <span style="color:var(--marvin);font-size:10px">↓${msf.winner}</span>
+        </div>`;
     }
   }
 
-  return `
-<div class="sf-block">
-  <div class="sf-lbl">${label}</div>
-  <div class="sf-card">${teamsHTML}</div>
-  <div class="sf-arrow">↓ advances</div>
-  ${sfWinnerHTML(lsf.winner, msf.winner)}
-</div>`;
+  return `<div class="sf-block">${card}</div>`;
 }
 
 function champHTML() {
