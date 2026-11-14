@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Set your patronage — Story Markets</title>
+<style>
+:root{--ink:#18201d;--muted:#66716b;--paper:#f3f0e8;--card:#fbfaf5;--line:#d9d8ce;--coral:#d95d43;--green:#51745f;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;--serif:Georgia,"Times New Roman",serif;--mono:"SFMono-Regular",Consolas,monospace}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}.wrap{max-width:760px;margin:auto;padding:0 24px}.top{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.logo{font-weight:750;letter-spacing:-.04em;text-decoration:none;color:inherit}.logo i{color:var(--coral);font-style:normal}.top span{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}main{padding:76px 0 110px}.kicker{color:var(--coral);font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;font-weight:700}h1{font:400 clamp(48px,8vw,78px)/1.02 var(--serif);letter-spacing:-.015em;margin:18px 0 20px}h1 em{color:var(--coral);font-style:normal}.lede{font-size:19px;max-width:600px;color:var(--muted);margin:0 0 38px}.card{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:28px}.field{border-top:1px solid var(--line);padding:22px 0 0;margin-top:22px}.field:first-child{border-top:0;padding-top:0;margin-top:0}label,.label{display:block;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}.hint{font-size:13px;color:var(--muted);margin:-2px 0 12px}input,select{width:100%;border:1px solid #bbbfb8;background:#fffef9;border-radius:3px;padding:12px;color:var(--ink);font-size:16px}.money{display:flex;align-items:center;gap:8px}.money span{font:20px var(--serif);color:var(--muted)}.money input{flex:1}.period{display:grid;grid-template-columns:1fr 1fr;gap:9px}.period label{border:1px solid var(--line);border-radius:3px;padding:12px;background:#fffef9;color:var(--ink);cursor:pointer;margin:0;font:600 14px var(--sans);letter-spacing:0;text-transform:none}.period input{width:auto;margin-right:8px;accent-color:var(--coral)}.summary{margin:25px 0 0;padding:15px;background:#e9eee7;border-radius:3px;font-size:14px}.summary strong{color:var(--green)}button{margin-top:24px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:13px 18px;font-weight:750;font-size:14px;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.message{min-height:20px;color:var(--coral);font-size:13px;margin:13px 0 0}footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:12px}@media(max-width:600px){main{padding-top:48px}.card{padding:20px}.period{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top wrap"><a class="logo" href="/">story<i>.</i>markets</a><span>Patron setup</span></header>
+<main class="wrap">
+<div class="kicker">One quiet decision before the feed</div>
+<h1>Set the limits that let you <em>stay.</em></h1>
+<p class="lede">Patronage works better when it has edges. Choose how much money and attention you want to spend. You can change these limits later.</p>
+<form class="card" id="patronage-form">
+<div class="field"><label for="budget">Monthly art budget</label><p class="hint">The most you intend to spend on art each month.</p><div class="money"><span>$</span><input id="budget" name="budget" type="number" min="5" max="10000" step="1" value="20" required></div></div>
+<div class="field"><label>How often would you like to view stories?</label><p class="hint">This is your attention rhythm, not a quota.</p><div class="period"><label><input type="radio" name="period" value="daily" checked> Daily</label><label><input type="radio" name="period" value="weekly"> Weekly</label></div></div>
+<div class="field"><label for="views">Items to view per rhythm</label><p class="hint">After this limit, the feed stops asking for your attention.</p><input id="views" name="views" type="number" min="1" max="100" step="1" value="3" required></div>
+<div class="field"><label for="support">Maximum support per month</label><p class="hint">A hard money limit for actual art support. It cannot exceed your art budget.</p><div class="money"><span>$</span><input id="support" name="support" type="number" min="0" max="10000" step="1" value="20" required></div></div>
+<div class="summary">Your starting rhythm: <strong id="summary">$20/month · 3 items daily · up to $20/month in support</strong></div>
+<button id="save" type="submit">Save patronage settings and enter the feed →</button><p class="message" id="message" role="status"></p>
+</form>
+</main>
+<footer><div class="wrap">Your limits are yours. The feed does not need to become your life.</div></footer>
+<script>
+const form=document.querySelector('#patronage-form'), budget=document.querySelector('#budget'), period=document.querySelectorAll('[name="period"]'), views=document.querySelector('#views'), support=document.querySelector('#support'), summary=document.querySelector('#summary'), message=document.querySelector('#message'), save=document.querySelector('#save');
+const selectedPeriod=()=>[...period].find(x=>x.checked)?.value||'daily';
+function updateSummary(){summary.textContent=`$${budget.value||0}/month · ${views.value||0} items ${selectedPeriod()} · up to $${support.value||0}/month in support`}
+[budget,views,support,...period].forEach(x=>x.addEventListener('input',updateSummary));
+(async()=>{const response=await fetch('/api/patronage/config');if(response.status===401){location.href='/?login=required';return}if(!response.ok)return;const data=await response.json();if(data.configured&&data.patronage){budget.value=(data.patronage.budget_cents/100).toFixed(0);support.value=(data.patronage.support_limit_cents/100).toFixed(0);views.value=data.patronage.view_limit;period.forEach(x=>x.checked=x.value===data.patronage.view_period);updateSummary()}})();
+form.addEventListener('submit',async event=>{event.preventDefault();message.textContent='';save.disabled=true;const response=await fetch('/api/patronage/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({budget_cents:Math.round(Number(budget.value)*100),support_limit_cents:Math.round(Number(support.value)*100),view_period:selectedPeriod(),view_limit:Number(views.value)})});const data=await response.json().catch(()=>({}));if(!response.ok){message.textContent=data.error||'Could not save these settings.';save.disabled=false;return}const requested=new URLSearchParams(location.search).get('return_to')||'/';const destination=/^\/market-maker(?:\/battle\/[a-z0-9-]+\/?)?\/?$/.test(requested)?requested:'/';location.href=destination});
+</script>
+</body>
+</html>

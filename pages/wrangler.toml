@@ -1,0 +1,25 @@
+name = "story-markets"
+pages_build_output_dir = "."
+compatibility_date = "2026-02-25"
+
+[[d1_databases]]
+binding = "STORY_MARKETS_LEDGER"
+database_name = "story-markets-ledger"
+database_id = "e8956d67-feaa-434c-bcf3-d8fc154315be"
+
+[[r2_buckets]]
+binding = "STORY_MARKETS_VIDEOS"
+bucket_name = "story-markets-videos"
+
+[[env.production.services]]
+binding = "CREATOR_STUDIO"
+service = "story-markets-creator"
+
+[[env.production.d1_databases]]
+binding = "STORY_MARKETS_LEDGER"
+database_name = "story-markets-ledger"
+database_id = "e8956d67-feaa-434c-bcf3-d8fc154315be"
+
+[[env.production.r2_buckets]]
+binding = "STORY_MARKETS_VIDEOS"
+bucket_name = "story-markets-videos"
