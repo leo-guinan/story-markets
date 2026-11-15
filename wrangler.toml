@@ -1,0 +1,46 @@
+name = "story-markets-creator-local"
+main = "worker/index.js"
+compatibility_date = "2026-11-13"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = ["/creator*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "story-markets-creator-local"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[vars]
+ALLOWED_ORIGIN = "https://story.markets,https://www.story.markets"
+ENVIRONMENT = "development"
+
+# Production resources are deliberately isolated from local development.
+[env.production]
+name = "story-markets-creator"
+compatibility_date = "2026-11-13"
+
+[env.production.assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = ["/creator*"]
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "story-markets-creator"
+database_id = "d629fd20-f7ee-4612-9ad3-dd8d0a5606ce"
+migrations_dir = "migrations"
+
+[[env.production.routes]]
+pattern = "story.markets/creator*"
+zone_name = "story.markets"
+
+[[env.production.routes]]
+pattern = "www.story.markets/creator*"
+zone_name = "story.markets"
+
+[env.production.vars]
+ALLOWED_ORIGIN = "https://story.markets,https://www.story.markets"
+ENVIRONMENT = "production"

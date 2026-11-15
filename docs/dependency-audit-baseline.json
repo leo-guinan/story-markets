@@ -1,0 +1,487 @@
+{
+  "generatedAt": "2026-11-14T14:27:38.019Z",
+  "source": "npm audit --omit=dev --json",
+  "decision": "Initial release proceeds at the user’s explicit direction with this pre-existing baseline documented; this is not a security clearance.",
+  "counts": {
+    "total": 34,
+    "critical": 0,
+    "high": 18,
+    "moderate": 16,
+    "low": 0,
+    "info": 0
+  },
+  "findings": [
+    {
+      "name": "@coinbase/cdp-sdk",
+      "severity": "high",
+      "range": ">=1.0.0",
+      "via": [
+        "dependency:abitype",
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/@wagmi/connectors/node_modules/@coinbase/cdp-sdk"
+      ],
+      "fingerprint": "{\"name\":\"@coinbase/cdp-sdk\",\"severity\":\"high\",\"range\":\">=1.0.0\",\"via\":[\"dependency:abitype\",\"dependency:zod\"],\"nodes\":[\"node_modules/@wagmi/connectors/node_modules/@coinbase/cdp-sdk\"]}"
+    },
+    {
+      "name": "@farcaster/mini-app-solana",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@farcaster/miniapp-core",
+        "dependency:@farcaster/miniapp-sdk",
+        "dependency:@solana/wallet-adapter-base",
+        "dependency:@solana/wallet-adapter-react"
+      ],
+      "nodes": [
+        "node_modules/@farcaster/mini-app-solana"
+      ],
+      "fingerprint": "{\"name\":\"@farcaster/mini-app-solana\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@farcaster/miniapp-core\",\"dependency:@farcaster/miniapp-sdk\",\"dependency:@solana/wallet-adapter-base\",\"dependency:@solana/wallet-adapter-react\"],\"nodes\":[\"node_modules/@farcaster/mini-app-solana\"]}"
+    },
+    {
+      "name": "@farcaster/miniapp-core",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@solana/web3.js",
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/@farcaster/mini-app-solana/node_modules/@farcaster/miniapp-core",
+        "node_modules/@farcaster/miniapp-core"
+      ],
+      "fingerprint": "{\"name\":\"@farcaster/miniapp-core\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@solana/web3.js\",\"dependency:zod\"],\"nodes\":[\"node_modules/@farcaster/mini-app-solana/node_modules/@farcaster/miniapp-core\",\"node_modules/@farcaster/miniapp-core\"]}"
+    },
+    {
+      "name": "@farcaster/miniapp-sdk",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@farcaster/miniapp-core",
+        "dependency:@farcaster/quick-auth",
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@farcaster/miniapp-sdk"
+      ],
+      "fingerprint": "{\"name\":\"@farcaster/miniapp-sdk\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@farcaster/miniapp-core\",\"dependency:@farcaster/quick-auth\",\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@farcaster/miniapp-sdk\"]}"
+    },
+    {
+      "name": "@farcaster/quick-auth",
+      "severity": "high",
+      "range": "<=0.0.8",
+      "via": [
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/@farcaster/quick-auth"
+      ],
+      "fingerprint": "{\"name\":\"@farcaster/quick-auth\",\"severity\":\"high\",\"range\":\"<=0.0.8\",\"via\":[\"dependency:zod\"],\"nodes\":[\"node_modules/@farcaster/quick-auth\"]}"
+    },
+    {
+      "name": "@gemini-wallet/core",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@metamask/rpc-errors"
+      ],
+      "nodes": [
+        "node_modules/@gemini-wallet/core"
+      ],
+      "fingerprint": "{\"name\":\"@gemini-wallet/core\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@metamask/rpc-errors\"],\"nodes\":[\"node_modules/@gemini-wallet/core\"]}"
+    },
+    {
+      "name": "@metamask/rpc-errors",
+      "severity": "moderate",
+      "range": ">=6.3.1",
+      "via": [
+        "dependency:@metamask/utils"
+      ],
+      "nodes": [
+        "node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/rpc-errors",
+        "node_modules/@metamask/json-rpc-engine/node_modules/@metamask/rpc-errors",
+        "node_modules/@metamask/providers/node_modules/@metamask/rpc-errors",
+        "node_modules/@metamask/rpc-errors"
+      ],
+      "fingerprint": "{\"name\":\"@metamask/rpc-errors\",\"severity\":\"moderate\",\"range\":\">=6.3.1\",\"via\":[\"dependency:@metamask/utils\"],\"nodes\":[\"node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/rpc-errors\",\"node_modules/@metamask/json-rpc-engine/node_modules/@metamask/rpc-errors\",\"node_modules/@metamask/providers/node_modules/@metamask/rpc-errors\",\"node_modules/@metamask/rpc-errors\"]}"
+    },
+    {
+      "name": "@metamask/sdk",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@metamask/sdk-communication-layer",
+        "dependency:uuid"
+      ],
+      "nodes": [
+        "node_modules/@metamask/sdk"
+      ],
+      "fingerprint": "{\"name\":\"@metamask/sdk\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@metamask/sdk-communication-layer\",\"dependency:uuid\"],\"nodes\":[\"node_modules/@metamask/sdk\"]}"
+    },
+    {
+      "name": "@metamask/sdk-communication-layer",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:uuid"
+      ],
+      "nodes": [
+        "node_modules/@metamask/sdk/node_modules/@metamask/sdk-communication-layer"
+      ],
+      "fingerprint": "{\"name\":\"@metamask/sdk-communication-layer\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:uuid\"],\"nodes\":[\"node_modules/@metamask/sdk/node_modules/@metamask/sdk-communication-layer\"]}"
+    },
+    {
+      "name": "@metamask/utils",
+      "severity": "moderate",
+      "range": "8.4.0 - 12.0.0",
+      "via": [
+        "dependency:uuid"
+      ],
+      "nodes": [
+        "node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/json-rpc-engine/node_modules/@metamask/utils",
+        "node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils",
+        "node_modules/@metamask/json-rpc-engine/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils",
+        "node_modules/@metamask/json-rpc-engine/node_modules/@metamask/utils",
+        "node_modules/@metamask/json-rpc-middleware-stream/node_modules/@metamask/utils",
+        "node_modules/@metamask/providers/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils",
+        "node_modules/@metamask/providers/node_modules/@metamask/utils",
+        "node_modules/@metamask/utils"
+      ],
+      "fingerprint": "{\"name\":\"@metamask/utils\",\"severity\":\"moderate\",\"range\":\"8.4.0 - 12.0.0\",\"via\":[\"dependency:uuid\"],\"nodes\":[\"node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/json-rpc-engine/node_modules/@metamask/utils\",\"node_modules/@metamask/eth-json-rpc-provider/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils\",\"node_modules/@metamask/json-rpc-engine/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils\",\"node_modules/@metamask/json-rpc-engine/node_modules/@metamask/utils\",\"node_modules/@metamask/json-rpc-middleware-stream/node_modules/@metamask/utils\",\"node_modules/@metamask/providers/node_modules/@metamask/rpc-errors/node_modules/@metamask/utils\",\"node_modules/@metamask/providers/node_modules/@metamask/utils\",\"node_modules/@metamask/utils\"]}"
+    },
+    {
+      "name": "@privy-io/react-auth",
+      "severity": "high",
+      "range": ">=2.19.3",
+      "via": [
+        "dependency:@farcaster/mini-app-solana",
+        "dependency:@walletconnect/ethereum-provider",
+        "dependency:x402"
+      ],
+      "nodes": [
+        "node_modules/@privy-io/react-auth"
+      ],
+      "fingerprint": "{\"name\":\"@privy-io/react-auth\",\"severity\":\"high\",\"range\":\">=2.19.3\",\"via\":[\"dependency:@farcaster/mini-app-solana\",\"dependency:@walletconnect/ethereum-provider\",\"dependency:x402\"],\"nodes\":[\"node_modules/@privy-io/react-auth\"]}"
+    },
+    {
+      "name": "@reown/appkit",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@reown/appkit-controllers",
+        "dependency:@reown/appkit-pay",
+        "dependency:@reown/appkit-scaffold-ui",
+        "dependency:@reown/appkit-ui",
+        "dependency:@reown/appkit-utils",
+        "dependency:@reown/appkit-wallet"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@reown/appkit-controllers\",\"dependency:@reown/appkit-pay\",\"dependency:@reown/appkit-scaffold-ui\",\"dependency:@reown/appkit-ui\",\"dependency:@reown/appkit-utils\",\"dependency:@reown/appkit-wallet\"],\"nodes\":[\"node_modules/@reown/appkit\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit\"]}"
+    },
+    {
+      "name": "@reown/appkit-controllers",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@reown/appkit-wallet"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-controllers",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-controllers"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-controllers\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@reown/appkit-wallet\"],\"nodes\":[\"node_modules/@reown/appkit-controllers\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-controllers\"]}"
+    },
+    {
+      "name": "@reown/appkit-pay",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@reown/appkit-controllers",
+        "dependency:@reown/appkit-ui",
+        "dependency:@reown/appkit-utils"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-pay",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-pay"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-pay\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@reown/appkit-controllers\",\"dependency:@reown/appkit-ui\",\"dependency:@reown/appkit-utils\"],\"nodes\":[\"node_modules/@reown/appkit-pay\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-pay\"]}"
+    },
+    {
+      "name": "@reown/appkit-scaffold-ui",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@reown/appkit-controllers",
+        "dependency:@reown/appkit-ui",
+        "dependency:@reown/appkit-utils",
+        "dependency:@reown/appkit-wallet"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-scaffold-ui",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-scaffold-ui"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-scaffold-ui\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@reown/appkit-controllers\",\"dependency:@reown/appkit-ui\",\"dependency:@reown/appkit-utils\",\"dependency:@reown/appkit-wallet\"],\"nodes\":[\"node_modules/@reown/appkit-scaffold-ui\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-scaffold-ui\"]}"
+    },
+    {
+      "name": "@reown/appkit-ui",
+      "severity": "high",
+      "range": ">=1.7.1-449657bc8f95adcfd295a2e883c4bcd439045044.0",
+      "via": [
+        "dependency:@reown/appkit-controllers",
+        "dependency:@reown/appkit-wallet"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-ui",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-ui"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-ui\",\"severity\":\"high\",\"range\":\">=1.7.1-449657bc8f95adcfd295a2e883c4bcd439045044.0\",\"via\":[\"dependency:@reown/appkit-controllers\",\"dependency:@reown/appkit-wallet\"],\"nodes\":[\"node_modules/@reown/appkit-ui\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-ui\"]}"
+    },
+    {
+      "name": "@reown/appkit-utils",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:@reown/appkit-controllers",
+        "dependency:@reown/appkit-wallet"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-utils",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-utils"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-utils\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:@reown/appkit-controllers\",\"dependency:@reown/appkit-wallet\"],\"nodes\":[\"node_modules/@reown/appkit-utils\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-utils\"]}"
+    },
+    {
+      "name": "@reown/appkit-wallet",
+      "severity": "high",
+      "range": "*",
+      "via": [
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/@reown/appkit-wallet",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-wallet"
+      ],
+      "fingerprint": "{\"name\":\"@reown/appkit-wallet\",\"severity\":\"high\",\"range\":\"*\",\"via\":[\"dependency:zod\"],\"nodes\":[\"node_modules/@reown/appkit-wallet\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-wallet\"]}"
+    },
+    {
+      "name": "@solana-mobile/mobile-wallet-adapter-protocol-web3js",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@solana-mobile/mobile-wallet-adapter-protocol-web3js"
+      ],
+      "fingerprint": "{\"name\":\"@solana-mobile/mobile-wallet-adapter-protocol-web3js\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@solana-mobile/mobile-wallet-adapter-protocol-web3js\"]}"
+    },
+    {
+      "name": "@solana-mobile/wallet-adapter-mobile",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana-mobile/mobile-wallet-adapter-protocol-web3js",
+        "dependency:@solana/wallet-adapter-base",
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@solana-mobile/wallet-adapter-mobile"
+      ],
+      "fingerprint": "{\"name\":\"@solana-mobile/wallet-adapter-mobile\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana-mobile/mobile-wallet-adapter-protocol-web3js\",\"dependency:@solana/wallet-adapter-base\",\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@solana-mobile/wallet-adapter-mobile\"]}"
+    },
+    {
+      "name": "@solana/wallet-adapter-base",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@solana/wallet-adapter-base"
+      ],
+      "fingerprint": "{\"name\":\"@solana/wallet-adapter-base\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@solana/wallet-adapter-base\"]}"
+    },
+    {
+      "name": "@solana/wallet-adapter-react",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana-mobile/wallet-adapter-mobile",
+        "dependency:@solana/wallet-adapter-base",
+        "dependency:@solana/wallet-standard-wallet-adapter-react",
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@solana/wallet-adapter-react"
+      ],
+      "fingerprint": "{\"name\":\"@solana/wallet-adapter-react\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana-mobile/wallet-adapter-mobile\",\"dependency:@solana/wallet-adapter-base\",\"dependency:@solana/wallet-standard-wallet-adapter-react\",\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@solana/wallet-adapter-react\"]}"
+    },
+    {
+      "name": "@solana/wallet-standard-wallet-adapter-base",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana/wallet-adapter-base",
+        "dependency:@solana/web3.js"
+      ],
+      "nodes": [
+        "node_modules/@solana/wallet-standard-wallet-adapter-base"
+      ],
+      "fingerprint": "{\"name\":\"@solana/wallet-standard-wallet-adapter-base\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana/wallet-adapter-base\",\"dependency:@solana/web3.js\"],\"nodes\":[\"node_modules/@solana/wallet-standard-wallet-adapter-base\"]}"
+    },
+    {
+      "name": "@solana/wallet-standard-wallet-adapter-react",
+      "severity": "moderate",
+      "range": "*",
+      "via": [
+        "dependency:@solana/wallet-adapter-base",
+        "dependency:@solana/wallet-standard-wallet-adapter-base"
+      ],
+      "nodes": [
+        "node_modules/@solana/wallet-standard-wallet-adapter-react"
+      ],
+      "fingerprint": "{\"name\":\"@solana/wallet-standard-wallet-adapter-react\",\"severity\":\"moderate\",\"range\":\"*\",\"via\":[\"dependency:@solana/wallet-adapter-base\",\"dependency:@solana/wallet-standard-wallet-adapter-base\"],\"nodes\":[\"node_modules/@solana/wallet-standard-wallet-adapter-react\"]}"
+    },
+    {
+      "name": "@solana/web3.js",
+      "severity": "moderate",
+      "range": "<=0.0.0-pr-29130 || 0.0.4 - 1.99.0",
+      "via": [
+        "dependency:jayson"
+      ],
+      "nodes": [
+        "node_modules/@solana/web3.js"
+      ],
+      "fingerprint": "{\"name\":\"@solana/web3.js\",\"severity\":\"moderate\",\"range\":\"<=0.0.0-pr-29130 || 0.0.4 - 1.99.0\",\"via\":[\"dependency:jayson\"],\"nodes\":[\"node_modules/@solana/web3.js\"]}"
+    },
+    {
+      "name": "@wagmi/connectors",
+      "severity": "high",
+      "range": "<=0.0.0-wc-links-20240926225814 || 4.0.0-alpha.0 - 4.0.0-rc.3 || >=4.0.1",
+      "via": [
+        "dependency:@gemini-wallet/core",
+        "dependency:@metamask/sdk",
+        "dependency:@walletconnect/ethereum-provider"
+      ],
+      "nodes": [
+        "node_modules/@wagmi/connectors"
+      ],
+      "fingerprint": "{\"name\":\"@wagmi/connectors\",\"severity\":\"high\",\"range\":\"<=0.0.0-wc-links-20240926225814 || 4.0.0-alpha.0 - 4.0.0-rc.3 || >=4.0.1\",\"via\":[\"dependency:@gemini-wallet/core\",\"dependency:@metamask/sdk\",\"dependency:@walletconnect/ethereum-provider\"],\"nodes\":[\"node_modules/@wagmi/connectors\"]}"
+    },
+    {
+      "name": "@walletconnect/ethereum-provider",
+      "severity": "high",
+      "range": "0.0.0-canary-rollup.0 || 2.17.1-canary-0 - 2.17.1-canary-appkit.0 || 2.17.4-canary-ak-1 - 2.17.4-canary-ak-4 || 2.18.0-canary-ak-1 - 2.18.0-rc-1 || 2.19.0-canary-ak-1 - 2.19.0-rc-1 || 2.19.4-canary-ak-1 || >=2.20.0",
+      "via": [
+        "dependency:@reown/appkit"
+      ],
+      "nodes": [
+        "node_modules/@wagmi/connectors/node_modules/@walletconnect/ethereum-provider",
+        "node_modules/@walletconnect/ethereum-provider"
+      ],
+      "fingerprint": "{\"name\":\"@walletconnect/ethereum-provider\",\"severity\":\"high\",\"range\":\"0.0.0-canary-rollup.0 || 2.17.1-canary-0 - 2.17.1-canary-appkit.0 || 2.17.4-canary-ak-1 - 2.17.4-canary-ak-4 || 2.18.0-canary-ak-1 - 2.18.0-rc-1 || 2.19.0-canary-ak-1 - 2.19.0-rc-1 || 2.19.4-canary-ak-1 || >=2.20.0\",\"via\":[\"dependency:@reown/appkit\"],\"nodes\":[\"node_modules/@wagmi/connectors/node_modules/@walletconnect/ethereum-provider\",\"node_modules/@walletconnect/ethereum-provider\"]}"
+    },
+    {
+      "name": "abitype",
+      "severity": "high",
+      "range": "<=0.0.0-main-20230430000127 || 0.7.0-canary.20230307T162852 - 1.0.9",
+      "via": [
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/@wagmi/connectors/node_modules/abitype"
+      ],
+      "fingerprint": "{\"name\":\"abitype\",\"severity\":\"high\",\"range\":\"<=0.0.0-main-20230430000127 || 0.7.0-canary.20230307T162852 - 1.0.9\",\"via\":[\"dependency:zod\"],\"nodes\":[\"node_modules/@wagmi/connectors/node_modules/abitype\"]}"
+    },
+    {
+      "name": "jayson",
+      "severity": "moderate",
+      "range": "2.0.6 - 4.3.0",
+      "via": [
+        "dependency:stream-json",
+        "dependency:uuid"
+      ],
+      "nodes": [
+        "node_modules/jayson"
+      ],
+      "fingerprint": "{\"name\":\"jayson\",\"severity\":\"moderate\",\"range\":\"2.0.6 - 4.3.0\",\"via\":[\"dependency:stream-json\",\"dependency:uuid\"],\"nodes\":[\"node_modules/jayson\"]}"
+    },
+    {
+      "name": "stream-json",
+      "severity": "moderate",
+      "range": "<=3.5.0",
+      "via": [
+        "advisory:1164823:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-528h-pc64-c93x:<=3.4.0",
+        "advisory:1241262:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-hqr4-qq8f-hg3x:<=3.5.0",
+        "advisory:1241263:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-mjw6-4jj6-33hc:<3.6.0"
+      ],
+      "nodes": [
+        "node_modules/stream-json"
+      ],
+      "fingerprint": "{\"name\":\"stream-json\",\"severity\":\"moderate\",\"range\":\"<=3.5.0\",\"via\":[\"advisory:1164823:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-528h-pc64-c93x:<=3.4.0\",\"advisory:1241262:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-hqr4-qq8f-hg3x:<=3.5.0\",\"advisory:1241263:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-mjw6-4jj6-33hc:<3.6.0\"],\"nodes\":[\"node_modules/stream-json\"]}"
+    },
+    {
+      "name": "uuid",
+      "severity": "moderate",
+      "range": "<11.1.1",
+      "via": [
+        "advisory:1119441:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-w5hq-g745-h8pq:<11.1.1"
+      ],
+      "nodes": [
+        "node_modules/@metamask/eth-json-rpc-provider/node_modules/uuid",
+        "node_modules/@metamask/json-rpc-engine/node_modules/uuid",
+        "node_modules/@metamask/json-rpc-middleware-stream/node_modules/uuid",
+        "node_modules/@metamask/providers/node_modules/uuid",
+        "node_modules/@metamask/utils/node_modules/uuid",
+        "node_modules/uuid"
+      ],
+      "fingerprint": "{\"name\":\"uuid\",\"severity\":\"moderate\",\"range\":\"<11.1.1\",\"via\":[\"advisory:1119441:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-w5hq-g745-h8pq:<11.1.1\"],\"nodes\":[\"node_modules/@metamask/eth-json-rpc-provider/node_modules/uuid\",\"node_modules/@metamask/json-rpc-engine/node_modules/uuid\",\"node_modules/@metamask/json-rpc-middleware-stream/node_modules/uuid\",\"node_modules/@metamask/providers/node_modules/uuid\",\"node_modules/@metamask/utils/node_modules/uuid\",\"node_modules/uuid\"]}"
+    },
+    {
+      "name": "wagmi",
+      "severity": "moderate",
+      "range": "<=0.0.0-wc-links-20240926225814 || 2.0.0-alpha.0 - 2.0.0-rc.3 || 2.0.1 - 3.5.0",
+      "via": [
+        "dependency:@wagmi/connectors"
+      ],
+      "nodes": [
+        "node_modules/wagmi"
+      ],
+      "fingerprint": "{\"name\":\"wagmi\",\"severity\":\"moderate\",\"range\":\"<=0.0.0-wc-links-20240926225814 || 2.0.0-alpha.0 - 2.0.0-rc.3 || 2.0.1 - 3.5.0\",\"via\":[\"dependency:@wagmi/connectors\"],\"nodes\":[\"node_modules/wagmi\"]}"
+    },
+    {
+      "name": "x402",
+      "severity": "high",
+      "range": ">=0.1.0",
+      "via": [
+        "dependency:wagmi",
+        "dependency:zod"
+      ],
+      "nodes": [
+        "node_modules/x402"
+      ],
+      "fingerprint": "{\"name\":\"x402\",\"severity\":\"high\",\"range\":\">=0.1.0\",\"via\":[\"dependency:wagmi\",\"dependency:zod\"],\"nodes\":[\"node_modules/x402\"]}"
+    },
+    {
+      "name": "zod",
+      "severity": "high",
+      "range": "<4.6.6",
+      "via": [
+        "advisory:1243066:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-mrhx-c7xc-m3w5:<4.6.6"
+      ],
+      "nodes": [
+        "node_modules/@farcaster/mini-app-solana/node_modules/zod",
+        "node_modules/@farcaster/quick-auth/node_modules/zod",
+        "node_modules/@wagmi/connectors/node_modules/@reown/appkit-wallet/node_modules/zod",
+        "node_modules/@wagmi/connectors/node_modules/zod",
+        "node_modules/x402/node_modules/zod",
+        "node_modules/zod"
+      ],
+      "fingerprint": "{\"name\":\"zod\",\"severity\":\"high\",\"range\":\"<4.6.6\",\"via\":[\"advisory:1243066:https:\u002f\u002fgithub.com\u002fadvisories\u002fGHSA-mrhx-c7xc-m3w5:<4.6.6\"],\"nodes\":[\"node_modules/@farcaster/mini-app-solana/node_modules/zod\",\"node_modules/@farcaster/quick-auth/node_modules/zod\",\"node_modules/@wagmi/connectors/node_modules/@reown/appkit-wallet/node_modules/zod\",\"node_modules/@wagmi/connectors/node_modules/zod\",\"node_modules/x402/node_modules/zod\",\"node_modules/zod\"]}"
+    }
+  ]
+}
