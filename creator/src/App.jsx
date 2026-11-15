@@ -38,7 +38,7 @@ const PROVIDER_DETAILS = Object.freeze({
 export function ConfigRequired({ message }) {
   return <main className="login-page">
     <header className="nav"><a href="/" className="wordmark">story<span>.</span>markets</a><span className="nav-note">FUTURE RADIO STUDIO / LOCAL SETUP</span></header>
-    <section className="login-hero"><div className="eyebrow">Local configuration required</div><h1>Keep the thread.<br/><i>Make the next thing.</i></h1><div className="login-card"><div className="card-kicker">SIGN-IN IS FAIL-CLOSED</div><p className="error-text">{message}</p><p>Set the Privy App ID from the project dashboard in the frontend environment to enable wallet login. No demo identity or authentication bypass is enabled.</p></div></section>
+    <section className="login-hero"><div className="eyebrow">Local configuration required</div><h1>Keep the thread.<br/><i>Make the next thing.</i></h1><div className="login-card"><div className="card-kicker">SIGN-IN IS FAIL-CLOSED</div><p className="error-text">{message}</p><p>Set the Privy App ID from the project dashboard in the frontend environment to enable wallet or X login. No demo identity or authentication bypass is enabled.</p></div></section>
     <footer className="footer"><span>FUTURE RADIO × STORY.MARKETS</span><span>Nothing publishes from this room.</span></footer>
   </main>;
 }
@@ -53,8 +53,8 @@ export function Login() {
       <p className="intro">Bring a provider key. Choose a Future Radio narrative—or start a private draft of your own. Your writing stays yours until you decide what to share.</p>
       <div className="login-card">
         <div className="card-kicker">YOUR WRITING ROOM</div>
-          <p>Sign in with Privy using your connected wallet. After you enter the studio, you can link X to that same Privy profile. X is not a separate sign-in path. Pelagus compatibility is not yet live-verified.</p>
-          <button className="button button-primary" disabled={!ready} onClick={() => login()}>{ready ? 'Continue with wallet' : 'Preparing sign-in…'} <span>↗</span></button>
+          <p>Sign in with a wallet or X through Privy. To keep one workspace, enter with the identity that already owns it, then link X from Account. A separate Privy identity is not merged automatically. Pelagus compatibility is not yet live-verified.</p>
+          <button className="button button-primary" disabled={!ready} onClick={() => login()}>{ready ? 'Sign in with a wallet or X' : 'Preparing sign-in…'} <span>↗</span></button>
           <small>No transaction or token approval is part of sign-in.</small>
       </div>
       <div className="privacy-line"><span className="status-dot"/> PRIVATE DRAFTS · YOUR KEY · YOU INITIATE EVERY GENERATION</div>
@@ -63,8 +63,23 @@ export function Login() {
   </main>;
 }
 
-function findTwitterAccount(user) {
+export function findTwitterAccount(user) {
   return user?.linkedAccounts?.find((account) => account?.type === 'twitter_oauth') || null;
+}
+
+export function formatXLinkError(error) {
+  const message = typeof error === 'string'
+    ? error
+    : typeof error?.message === 'string' ? error.message : '';
+  const normalized = message.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+  if (/linked_to_another_user|already_linked|already_associated|account_already_exists/.test(normalized)
+    || /already linked|belongs to another account/.test(message.toLowerCase())) {
+    return 'This X account is already linked to another Privy account. That identity and its workspace are not merged or moved automatically.';
+  }
+  if (/not_enabled|disabled|not_configured|unsupported|provider_unavailable|missing_client/.test(normalized)) {
+    return 'X is not enabled for this Privy app. Enable Twitter under Privy Dashboard login methods and verify the OAuth settings.';
+  }
+  return 'X authentication did not complete. In Privy Dashboard, enable Twitter as a login method and verify its OAuth settings, allowed origins, and callback URL.';
 }
 
 function XAccountLink({ user }) {
@@ -76,7 +91,7 @@ function XAccountLink({ user }) {
       if (linkedAccount?.type === 'twitter_oauth') setLinkedOverride(linkedAccount);
       setError('');
     },
-    onError: () => setError('X linking did not complete. Check this Privy app’s X/Twitter settings and try again.'),
+    onError: (error) => setError(formatXLinkError(error)),
   });
   const account = linkedOverride || findTwitterAccount(user);
 
@@ -84,7 +99,7 @@ function XAccountLink({ user }) {
     setConnecting(true);
     setError('');
     try { await linkTwitter(); }
-    catch { setError('X linking could not start. Check this Privy app’s X/Twitter settings and try again.'); }
+    catch (error) { setError(formatXLinkError(error)); }
     finally { setConnecting(false); }
   }
 
@@ -93,8 +108,8 @@ function XAccountLink({ user }) {
     <div className="step-label">PRIVY PROFILE</div>
     <h2 id="x-account-heading">X account</h2>
     {account
-      ? <p className="inline-note" role="status">Connected{handle ? ` as ${handle}` : ''} to this Privy profile. Your wallet remains the sign-in.</p>
-      : <><p className="panel-intro">Link X to this Privy profile. It will be attached to your wallet-backed identity, not used as a separate sign-in.</p><button className="button button-secondary" type="button" onClick={connectX} disabled={connecting}>{connecting ? 'Connecting to X…' : 'Link X account'}</button></>}
+      ? <p className="inline-note" role="status">Connected{handle ? ` as ${handle}` : ''} to this Privy identity. X can be used to sign in.</p>
+      : <><p className="panel-intro">Link X to this currently authenticated Privy identity. This keeps the same workspace whether you entered with a wallet or another method. Privy identities and their drafts are not merged automatically.</p><button className="button button-secondary" type="button" onClick={connectX} disabled={connecting}>{connecting ? 'Connecting to X…' : 'Link X account'}</button></>}
     {error && <p className="error-text" role="alert">{error}</p>}
   </section>;
 }

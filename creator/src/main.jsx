@@ -20,7 +20,7 @@ function Root() {
   return <PrivyProvider
     appId={appId}
     config={{
-      loginMethods: ['wallet'],
+      loginMethods: ['wallet', 'twitter'],
       appearance: {
         theme: 'dark',
         accentColor: '#dfbd76',
